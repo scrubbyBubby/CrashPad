@@ -1,0 +1,891 @@
+<div class="template-cover" id="cc-view-cover" *ngIf="ccView.mainState && ccView.mode != 'newCustomization' && ccView.mode != 'elementType' && ccView.mode != 'templateEdit' && ccView.mode != 'themeEdit'"></div>
+<div class="template-wrapper" *ngIf="ccView.mainState" [id]="ccView.ccViewUI+'-customization-box'">
+    <div id="customization-box" cdkDrag [cdkDragDisabled]="mobile" class="template-viewer new-customization-main-viewer" *ngIf="ccView.mode === 'newCustomization' || ccView.mode === 'templateEdit' || ccView.mode === 'themeEdit'"
+        [ngStyle]="ccView.locationStyling" [ngClass]="{'customization-minimized': ccView.customizationMinimized}">
+        <div cdkDragHandle class="cc-view-header">
+            <div [ngStyle]="elementService.elements[ccView.ccViewUI]?.parsedCustomization.backgroundAndTextOnly"
+                *ngIf="ccView.mode === 'newCustomization'" class="cc-view-header-text" (click)="ccView.minimizeCustomization()">
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+                <span>Element Customization</span>
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate-reverse':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+            </div>
+            <div *ngIf="ccView.mode === 'templateEdit'" class="cc-view-header-text" (click)="ccView.minimizeCustomization()"
+                [ngStyle]="elementService.templates[ccView.forms.templateEditUI].templateVisual">
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+                <span>Template Customization</span>
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate-reverse':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+            </div>
+            <div *ngIf="ccView.mode === 'themeEdit'" class="cc-view-header-text" (click)="ccView.minimizeCustomization()"
+                [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value.background]?.templateVisual">
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+                <span>Theme Customization</span>
+                <div class="expand-arrow header-arrow" [ngClass]="{'rotate-reverse':!ccView.customizationMinimized, 'no-display': !ccView.mobile}">&#9650;</div>
+            </div>
+        </div>
+        <div class="sub-template-viewer-wrapper" *ngIf="ccView.mode === 'newCustomization' || ccView.mode === 'templateEdit'">
+            <div class="sub-template-viewer" [formGroup]="ccView.forms.convertedCustomization">
+                <div class="option-container form-wrapper new-customization" 
+                    [ngClass]="{'checklist-customization': ccView.mode != 'templateEdit' && elementService.elements[ccView.ccViewUI]?.elementType === 'checklist', 'template-edit-customization': ccView.mode === 'templateEdit', 'container-customization': elementService.elements[ccView.ccViewUI]?.elementType === 'container'}">                                     
+                    <div class="theme-customization line-customization" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['theme'], 'super-invisible': ccView.ccViewElementType != 'container'}">
+                        <div class="group-header-cover" [ngClass]="{'invisible':ccView.focus.group === 'theme' || true}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','theme')">Theme</div>
+                        <div class="group-content">
+                            <div class="medium-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['content:theme']}"
+                                *ngIf="ccView.mode === 'newCustomization'">
+                                <label style="grid-area:label">Theme</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.themeUIList" [open]="openDD['content:theme']"
+                                    choiceType="theme"
+                                    [choice]="ccView.forms.convertedCustomization.value['content:theme']"
+                                    (ddChoice)="ccView.addNewOverride('content:theme', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('content:theme')"></app-drop-down>
+                                <!--
+                                    <select (input)="ccView.addNewOverride('content:theme');ccView.setNewCCViewTheme($event)"
+                                        style="grid-area:input" [formControlName]="'content:theme'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let theme of elementService.themeUIList" [value]="theme">{{elementService.themes[theme].themeName}}</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['content:theme']" class="override-icon" (click)="ccView.revertNewOverride('content:theme')">O</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="template-customization line-customization" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['template']}">
+                        <div class="group-header-cover" [ngClass]="{'invisible':ccView.focus.group === 'template' || true}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','template')">Template</div>
+                        <div class="group-content">
+                            <div class="medium-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['template:uid']}"
+                                *ngIf="ccView.mode === 'newCustomization'">
+                                <label style="grid-area:label">Template</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['template:uid']"
+                                    choiceType="template" [choice]="ccView.forms.convertedCustomization.value['template:uid']"
+                                    (ddChoice)="ccView.addNewOverride('template:uid', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('template:uid')"></app-drop-down>
+                                <!--
+                                    <select (input)="ccView.addNewOverride('template:uid');ccView.setNewCCViewTemplate($event)" style="grid-area:input" [formControlName]="'template:uid'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">{{elementService.templates[template].templateName}}</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['template:uid']" class="override-icon" (click)="ccView.revertNewOverride('template:uid')">O</div>
+                            </div>
+                            <div class="medium-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['template:uid']}"
+                                *ngIf="ccView.mode === 'templateEdit'">
+                                <label style="grid-area:label">Name</label>
+                                <input (input)="ccView.updateCustomizationFromForm()" type="text" spellcheck="false" autocomplete="false" [formControlName]="'template:name'">
+                                <div *ngIf="ccView.forms.newOverrides['template:uid']" class="override-icon" (click)="ccView.revertNewOverride('template:uid')">O</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-customization line-customization" [ngClass]="{'super-invisible': ccView.mode != 'newCustomization'}">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'content'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','content')">Content</div>
+                        <div class="group-content">
+                            <div class="small-edit" *ngFor="let content of ccView.forms.contentsList">
+                                <label>{{content | firstUpperCase}}</label>
+                                <input (focus)="$event.currentTarget.select()" style="font-size: 14px" (input)="ccView.updateCustomizationFromForm()" type="text" spellcheck="false" autocomplete="false" [formControlName]="'content:'+content">
+                            </div>
+                            <div [ngClass]="{'no-display':ccView.ccViewElementType != 'multilink'}" class="button add-content-button-wrapper"
+                                (click)="ccView.addContentToMultilink()">
+                                <div class="add-content-button">
+                                    Add Link
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font-customization square-customization">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'font'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','font')">
+                            <div class="inner-wrapper">
+                                Font
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['font']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'font'}">
+                            <div style="grid-area: bottom-left" class="small-edit"
+                                [ngClass]="{'focus-shadow':ccView.focus.subGroup === 'fontColor','override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['font:color']}">
+                                <label style="grid-area:header">Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('font:color', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'font:color'" [value]="ccView.forms.convertedCustomization.value['font:color']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('font:color', true, $event)" id="font-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'font:color'" [value]="ccView.forms.convertedCustomization.value['font:color']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['font:color'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('font:color')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['font:color'] && !ccView.forms.newOverrides['font:color']" class="template-icon">T</div>
+                            </div>
+                            <div style="grid-area: top-left" class="wide-edit"
+                                [ngClass]="{'focus-shadow':ccView.focus.subGroup === 'fontFamily','override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['font:family']}">
+                                <label style="grid-area:header">Family</label>
+                                <input (input)="ccView.addNewOverride('font:family', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="3" maxLength="16" [formControlName]="'font:family'">
+                                <div *ngIf="ccView.forms.newOverrides['font:family'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('font:family')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['font:family'] && !ccView.forms.newOverrides['font:family']" class="template-icon">T</div>
+                            </div>
+                            <div style="grid-area: top-right" class="wide-edit"
+                                [ngClass]="{'focus-shadow':ccView.focus.subGroup === 'fontSize','override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['font:size']}">
+                                <label style="grid-area:header">Size</label>
+                                <app-drop-down style="width:100%" [listItems]="fontChoices" [open]="openDD['font:size']"
+                                    [choice]="ccView.forms.convertedCustomization.value['font:size']"
+                                    (ddChoice)="ccView.addNewOverride('font:size', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('font:size')"></app-drop-down>
+                                <!--
+                                    <select (input)="ccView.addNewOverride('font:size')" id="font-size" [formControlName]="'font:size'">
+                                        <option value="12px">12px</option>
+                                        <option value="14px">14px</option>
+                                        <option value="16px">16px</option>
+                                        <option value="20px">20px</option>
+                                        <option value="24px">24px</option>
+                                        <option value="30px">30px</option>
+                                        <option value="36px">36px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['font:size'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('font:size')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['font:size'] && !ccView.forms.newOverrides['font:size']" class="template-icon">T</div>
+                            </div>
+                            <div style="grid-area: bottom-right" class="wide-edit"
+                                [ngClass]="{'focus-shadow':ccView.focus.subGroup === 'fontWeight','override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['font:style']}">
+                                <label style="grid-area:header">Style</label>
+                                <app-drop-down style="width:100%" [listItems]="fontStyles" max-height="200" [open]="openDD['font:style']"
+                                    [choice]="ccView.forms.convertedCustomization.value['font:style']"
+                                    (ddChoice)="ccView.addNewOverride('font:style', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('font:style')"></app-drop-down>
+                                <!--
+                                    <select (input)="ccView.addNewOverride('font:style')" id="font-weight" [formControlName]="'font:style'">
+                                        <option value="bold">Bold</option>
+                                        <option value="normal">Normal</option>
+                                        <option value="italic">Italic</option>
+                                        <option value="oblique">Oblique</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['font:style'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('font:style')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['font:style'] && !ccView.forms.newOverrides['font:style']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-customization square-customization">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'border'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','border')">
+                            <div class="inner-wrapper">
+                                Border
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['border']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'border'}">
+                            <div class="small-edit" style="grid-area: bottom-left" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['border:color']}">
+                                <label style="grid-area:header">Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('border:color', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'border:color'">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('border:color', true, $event)" id="font-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'border:color'">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['border:color'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('border:color')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['border:color'] && !ccView.forms.newOverrides['border:color']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" style="grid-area: top-right" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['border:width']}">
+                                <label style="grid-area:header">Width</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="borderWidths" [open]="openDD['border:width']"
+                                    [choice]="ccView.forms.convertedCustomization.value['border:width']"
+                                    (ddChoice)="ccView.addNewOverride('border:width', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('border:width')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('border:width')" id="border-width" [formControlName]="'border:width'">
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['border:width'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('border:width')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['border:width'] && !ccView.forms.newOverrides['border:width']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" style="grid-area: top-left" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['border:style']}">
+                                <label style="grid-area:header">Style</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="borderStyles" [open]="openDD['border:style']"
+                                    [choice]="ccView.forms.convertedCustomization.value['border:style']"
+                                    (ddChoice)="ccView.addNewOverride('border:style', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('border:style')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('border:style')" id="border-style" [formControlName]="'border:style'">
+                                        <option value="solid">Solid</option>
+                                        <option value="double">Double</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="dotted">Dotted</option>
+                                        <option value="ridge">Ridge</option>
+                                        <option value="groove">Groove</option>
+                                        <option value="outset">Outset</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['border:style'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('border:style')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['border:style'] && !ccView.forms.newOverrides['border:style']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" style="grid-area: bottom-right" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['border:radius']}">
+                                <label style="grid-area:header">Radius</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="borderRadii" [open]="openDD['border:radius']"
+                                    [choice]="ccView.forms.convertedCustomization.value['border:radius']"
+                                    (ddChoice)="ccView.addNewOverride('border:radius', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('border:radius')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('border:radius')" id="border-radius" [formControlName]="'border:radius'">
+                                        <option value="0px">0px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="10px">10px</option>
+                                        <option value="15px">15px</option>
+                                        <option value="20px">20px</option>
+                                        <option value="25px">25px</option>
+                                        <option value="30px">30px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['border:radius'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('border:radius')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['border:radius'] && !ccView.forms.newOverrides['border:radius']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="background-customization two-square-customization">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'background'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','background')">
+                            <div class="inner-wrapper">
+                                <span>Background</span>
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['background']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'background'}">
+                            <div class="small-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['background:color']}">
+                                <label style="grid-area:header">Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('background:color', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'background:color'" [value]="ccView.forms.convertedCustomization.value['background:color']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('background:color', true, $event)" id="font-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'background:color'" [value]="ccView.forms.convertedCustomization.value['background:color']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['background:color'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('background:color')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['background:color'] && !ccView.forms.newOverrides['background:color']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['background:image']}">
+                                <label style="grid-area:header">Image</label>
+                                <input (input)="ccView.addNewOverride('background:image', true, $event)" style="grid-area:text" type="url" spellcheck="false" autocomplete="false" size="4" [formControlName]="'background:image'">
+                                <div *ngIf="ccView.forms.newOverrides['background:image'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('background:image')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['background:image'] && !ccView.forms.newOverrides['background:image']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="shadow-customization six-square-customization" [ngClass]="{'top-stack': ccView.focus.group === 'shadow'}">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'shadow'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','shadow')">
+                            <div class="inner-wrapper">
+                                Shadow
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['shadow']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'shadow'}">
+                            <div class="small-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:color']}" style="grid-area: top-left">
+                                <label style="grid-area:header">Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('shadow:color', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'shadow:color'" [value]="ccView.forms.convertedCustomization.value['shadow:color']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('shadow:color', true, $event)" id="font-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'shadow:color'" [value]="ccView.forms.convertedCustomization.value['shadow:color']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['shadow:color'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:color')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:color'] && !ccView.forms.newOverrides['shadow:color']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:spread']}" style="grid-area: top-middle">
+                                <label style="grid-area:header">Spread</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="shadowSpreads" [open]="openDD['shadow:spread']"
+                                    [choice]="ccView.forms.convertedCustomization.value['shadow:spread']"
+                                    (ddChoice)="ccView.addNewOverride('shadow:spread', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('shadow:spread')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('shadow:spread')" id="shadow-spread" [formControlName]="'shadow:spread'">
+                                        <option value="0px">0px</option>
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                        <option value="8px">8px</option>
+                                        <option value="10px">10px</option>
+                                        <option value="16px">16px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['shadow:spread'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:spread')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:spread'] && !ccView.forms.newOverrides['shadow:spread']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:blur']}" style="grid-area: top-right">
+                                <label style="grid-area:header">Blur</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="shadowBlurs" [open]="openDD['shadow:blur']"
+                                    [choice]="ccView.forms.convertedCustomization.value['shadow:blur']"
+                                    (ddChoice)="ccView.addNewOverride('shadow:blur', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('shadow:blur')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('shadow:blur')" id="shadow-blur" [formControlName]="'shadow:blur'">
+                                        <option value="0px">0px</option>
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                        <option value="8px">8px</option>
+                                        <option value="10px">10px</option>
+                                        <option value="16px">16px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['shadow:blur'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:blur')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:blur'] && !ccView.forms.newOverrides['shadow:color']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:xOffset']}" style="grid-area: bottom-left">
+                                <label style="grid-area:header">X Offset</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="shadowOffsets" [open]="openDD['shadow:xOffset']"
+                                    [choice]="ccView.forms.convertedCustomization.value['shadow:xOffset']"
+                                    (ddChoice)="ccView.addNewOverride('shadow:xOffset', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('shadow:xOffset')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('shadow:xOffset')" id="shadow-x-offset" [formControlName]="'shadow:xOffset'">
+                                        <option value="0px">0px</option>
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['shadow:xOffset'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:xOffset')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:xOffset'] && !ccView.forms.newOverrides['shadow:xOffset']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:yOffset']}" style="grid-area: bottom-middle">
+                                <label style="grid-area:header">Y Offset</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="shadowOffsets" [open]="openDD['shadow:yOffset']"
+                                    [choice]="ccView.forms.convertedCustomization.value['shadow:yOffset']"
+                                    (ddChoice)="ccView.addNewOverride('shadow:yOffset', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('shadow:yOffset')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('shadow:yOffset')" id="shadow-y-offset" [formControlName]="'shadow:yOffset'">
+                                        <option value="0px">0px</option>
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['shadow:yOffset'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:yOffset')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:yOffset'] && !ccView.forms.newOverrides['shadow:yOffset']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['shadow:inset']}" style="grid-area: bottom-right">
+                                <label style="grid-area:header">Inset</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="shadowInsets" [open]="openDD['shadow:inset']"
+                                    [choice]="ccView.forms.convertedCustomization.value['shadow:inset']"
+                                    (ddChoice)="ccView.addNewOverride('shadow:inset', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('shadow:inset')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('shadow:inset')" id="shadow-x-offset" [formControlName]="'shadow:inset'">
+                                        <option value="outset">Outset</option>
+                                        <option value="inset">Inset</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['shadow:inset'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('shadow:inset')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['shadow:inset'] && !ccView.forms.newOverrides['shadow:inset']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-items-customization six-square-customization" [ngClass]="{'super-invisible': !(ccView.mode === 'templateEdit' || elementService.elements[ccView.ccViewUI]?.elementType === 'checklist')}">
+                        <div class='group-header-cover' [ngClass]="{'invisible':ccView.focus.group === 'listItems'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','listItems')">
+                            <div class="inner-wrapper">
+                                List Items
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['listItems']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'listItems'}">
+                            <div class="small-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:fontColor']}" style="grid-area: top-left">
+                                <label style="grid-area: header">Font Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:fontColor', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'listItems:fontColor'" [value]="ccView.forms.convertedCustomization.value['listItems:fontColor']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:fontColor', true, $event)" id="list-items-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'listItems:fontColor'" [value]="ccView.forms.convertedCustomization.value['listItems:fontColor']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['listItems:fontColor'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:fontColor')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:fontColor'] && !ccView.forms.newOverrides['listItems:fontColor']" class="template-icon">T</div>
+                            </div>
+                            <div class="small-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:background']}" style="grid-area: top-middle">
+                                <label style="grid-area: header">Background</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:background', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'listItems:background'" [value]="ccView.forms.convertedCustomization.value['listItems:background']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:background', true, $event)" id="list-items-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'listItems:background'" [value]="ccView.forms.convertedCustomization.value['listItems:background']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['listItems:background'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:background')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:background'] && !ccView.forms.newOverrides['listItems:background']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:size']}" style="grid-area: top-right">
+                                <label style="grid-area: header">Size</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="listItemSizes" [open]="openDD['listItems:size']"
+                                    [choice]="ccView.forms.convertedCustomization.value['listItems:size']"
+                                    (ddChoice)="ccView.addNewOverride('listItems:size', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('listItems:size')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('listItems:size')" id="list-items-size" [formControlName]="'listItems:size'">
+                                        <option value="small">Small</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="large">Large</option>
+                                        <option value="x-large">X-Large</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['listItems:size'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:size')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:size'] && !ccView.forms.newOverrides['listItems:size']" class="template-icon">T</div>
+                            </div>
+                            <div class="small-edit bottom-left" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:borderColor']}" style="grid-area: bottom-left">
+                                <label style="grid-area: header">Divider Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:borderColor', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'listItems:borderColor'" [value]="ccView.forms.convertedCustomization.value['listItems:borderColor']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('listItems:borderColor', true, $event)" id="list-items-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'listItems:borderColor'" [value]="ccView.forms.convertedCustomization.value['listItems:borderColor']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['listItems:borderColor'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:borderColor')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:borderColor'] && !ccView.forms.newOverrides['listItems:borderColor']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:borderWidth']}" style="grid-area: bottom-middle">
+                                <label style="grid-area: header">Divider Width</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="borderWidths" [open]="openDD['listItems:borderWidth']"
+                                    [choice]="ccView.forms.convertedCustomization.value['listItems:borderWidth']"
+                                    (ddChoice)="ccView.addNewOverride('listItems:borderWidth', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('listItems:borderWidth')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('listItems:borderWidth')" id="list-items-size" [formControlName]="'listItems:borderWidth'">
+                                        <option value="0px">0px</option>
+                                        <option value="1px">1px</option>
+                                        <option value="2px">2px</option>
+                                        <option value="3px">3px</option>
+                                        <option value="4px">4px</option>
+                                        <option value="5px">5px</option>
+                                        <option value="6px">6px</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['listItems:borderWidth'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:borderWidth')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:borderWidth'] && !ccView.forms.newOverrides['listItems:borderWidth']" class="template-icon">T</div>
+                            </div>
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['listItems:borderStyle']}" style="grid-area: bottom-right">
+                                <label style="grid-area: header">Divider Style</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="borderStyles" [open]="openDD['listItems:borderStyle']"
+                                    [choice]="ccView.forms.convertedCustomization.value['listItems:borderStyle']"
+                                    (ddChoice)="ccView.addNewOverride('listItems:borderStyle', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('listItems:borderStyle')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('listItems:borderStyle')" id="list-items-size" [formControlName]="'listItems:borderStyle'">
+                                        <option value="solid">Solid</option>
+                                        <option value="double">Double</option>
+                                        <option value="outset">Outset</option>
+                                        <option value="groove">Groove</option>
+                                        <option value="dashed">Dashed</option>
+                                        <option value="dotted">Dotted</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['listItems:borderStyle'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('listItems:borderStyle')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['listItems:borderStyle'] && !ccView.forms.newOverrides['listItems:borderStyle']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox-customization two-square-customization" [ngClass]="{'super-invisible': !(ccView.mode === 'templateEdit' || elementService.elements[ccView.ccViewUI]?.elementType === 'checklist')}">
+                        <div class="group-header-cover" [ngClass]="{'invisible':ccView.focus.group === 'checkbox'}"
+                            (click)="closeOtherDropDowns();ccView.setFocus('group','checkbox')">
+                            <div class="inner-wrapper">
+                                <span style="transform:rotate(90deg)">Checkbox</span>
+                                <div *ngIf="ccView.mode === 'newCustomization'" class="override-icon-container">
+                                    <div class="override-icon" *ngFor="let i of ccView.forms.newOverrideGroups['checkbox']">
+                                        O
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content" [ngClass]="{'no-display': ccView.mobile && ccView.focus.group != 'checkbox'}">
+                            <div class="wide-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['checkbox:icon']}" style="grid-area: top">
+                                <label style="grid-area: header">Icon</label>
+                                <app-drop-down style="width:100%;grid-area:text" [listItems]="checkboxIcons" [open]="openDD['checkbox:icon']"
+                                    [choice]="ccView.forms.convertedCustomization.value['checkbox:icon']"
+                                    [choiceType]="'raw'"
+                                    (ddChoice)="ccView.addNewOverride('checkbox:icon', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('checkbox:icon')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.addNewOverride('checkbox:icon')" id="checkbox-icon" [formControlName]="'checkbox:icon'">
+                                        <option value="X">X</option>
+                                        <option value="&#10003;">&#10003;</option>
+                                        <option value="fill">(fill)</option>
+                                    </select>
+                                -->
+                                <div *ngIf="ccView.forms.newOverrides['checkbox:icon'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('checkbox:icon')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['checkbox:icon'] && !ccView.forms.newOverrides['checkbox:icon']" class="template-icon">T</div>
+                            </div>
+                            <div class="small-edit" [ngClass]="{'override':ccView.mode === 'newCustomization' && ccView.forms.newOverrides['checkbox:color']}" style="grid-area: bottom">
+                                <label style="grid-area: header">Color</label>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('checkbox:color', true, $event)" style="grid-area:text" type="text" spellcheck="false" autocomplete="false" size="4" maxLength="7" [formControlName]="'checkbox:color'" [value]="ccView.forms.convertedCustomization.value['checkbox:color']">
+                                </div>
+                                <div>
+                                    <input (input)="ccView.addNewOverride('checkbox:color', true, $event)" id="checkbox-color-control" style="grid-area:color" type="color" spellcheck="false" autocomplete="false" [formControlName]="'checkbox:color'" [value]="ccView.forms.convertedCustomization.value['checkbox:color']">
+                                </div>
+                                <div *ngIf="ccView.forms.newOverrides['checkbox:color'] && ccView.mode === 'newCustomization'" class="override-icon" (click)="ccView.revertNewOverride('checkbox:color')">O</div>
+                                <div *ngIf="false && ccView.forms.templateValues['checkbox:color'] && !ccView.forms.newOverrides['checkbox:color']" class="template-icon">T</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-template-viewer-wrapper" *ngIf="ccView.mode === 'themeEdit'">
+            <div class="sub-template-viewer" [formGroup]="ccView.forms.newThemeEditor">
+                <div class="option-container form-wrapper new-customization theme-editor">
+                    <div class="content-customization line-customization" style="grid-area: content" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value.background]?.templateVisual">
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Theme Name</label>
+                                <input style="grid-area: input; font-size: 20px" type="text" spellcheck="false" autocomplete="false" [formControlName]="'name'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="background-template line-customization" style="grid-area: background" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['background']]?.templateVisual">
+                        <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.background}">
+                            <div class="disable-element-wrapper">
+                                <div class="disable-element">
+                                    <span>Disable</span>
+                                    <div (click)="ccView.toggleNewThemeEditorDisable('background')">
+                                        <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.background}">
+                                            &#10003;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="edit-template-icon disable-element">
+                                    <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.background)">
+                                        <div>
+                                            &#9998;
+                                        </div>
+                                    </div>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Launch Station</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:background']"
+                                    [choice]="ccView.forms.newThemeEditor.value['background']" choiceType="template"
+                                    (ddChoice)="ccView.addNewOverride('background', true, $event, true)"
+                                    (ddOpen)="closeOtherDropDowns('theme:background')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.updateCustomizationFromForm()" 
+                                        style="grid-area:input" [formControlName]="'background'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">
+                                            {{elementService.templates[template].templateName}}
+                                        </option>
+                                    </select>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-template line-customization" style="grid-area: container" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['container']]?.templateVisual">
+                        <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.container}">
+                            <div class="disable-element-wrapper">
+                                <div class="disable-element">
+                                    <span>Disable</span>
+                                    <div (click)="ccView.toggleNewThemeEditorDisable('container')">
+                                        <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.container}">
+                                            &#10003;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="edit-template-icon disable-element">
+                                    <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.container)">
+                                        <div>
+                                            &#9998;
+                                        </div>
+                                    </div>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Pads</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:container']"
+                                    [choice]="ccView.forms.newThemeEditor.value['container']" choiceType="template"
+                                    (ddChoice)="ccView.addNewOverride('container', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('theme:container')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.updateCustomizationFromForm()"
+                                        style="grid-area:input" [formControlName]="'container'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">{{elementService.templates[template].templateName}}</option>
+                                    </select>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checklist-template line-customization" style="grid-area: checklist" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['checklist']]?.templateVisual">
+                        <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.checklist}">
+                            <div class="disable-element-wrapper">
+                                <div class="disable-element">
+                                    <span>Disable</span>
+                                    <div (click)="ccView.toggleNewThemeEditorDisable('checklist')">
+                                        <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.checklist}">
+                                            &#10003;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="edit-template-icon disable-element">
+                                    <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.checklist)">
+                                        <div>
+                                            &#9998;
+                                        </div>
+                                    </div>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Checklists</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:checklist']"
+                                    [choice]="ccView.forms.newThemeEditor.value['checklist']" choiceType="template"
+                                    (ddChoice)="ccView.addNewOverride('checklist', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('theme:checklist')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.updateCustomizationFromForm()" 
+                                        style="grid-area:input" [formControlName]="'checklist'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">
+                                            {{elementService.templates[template].templateName}}
+                                        </option>
+                                    </select>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="link-template line-customization" style="grid-area: link" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['link']]?.templateVisual">
+                        <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.link}">
+                            <div class="disable-element-wrapper">
+                                <div class="disable-element">
+                                    <span>Disable</span>
+                                    <div (click)="ccView.toggleNewThemeEditorDisable('link')">
+                                        <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.link}">
+                                            &#10003;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="edit-template-icon disable-element">
+                                    <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.link)">
+                                        <div>
+                                            &#9998;
+                                        </div>
+                                    </div>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Links</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:link']"
+                                    [choice]="ccView.forms.newThemeEditor.value['link']" choiceType="template"
+                                    (ddChoice)="ccView.addNewOverride('link', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('theme:link')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.updateCustomizationFromForm()"
+                                        style="grid-area:input" [formControlName]="'link'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">{{elementService.templates[template].templateName}}</option>
+                                    </select>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                        <div class="multilink-template line-customization" style="grid-area: multilink" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['multilink']]?.templateVisual">
+                            <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.multilink}">
+                                <div class="disable-element-wrapper">
+                                    <div class="disable-element">
+                                        <span>Disable</span>
+                                        <div (click)="ccView.toggleNewThemeEditorDisable('multilink')">
+                                            <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.multilink}">
+                                                &#10003;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="edit-template-icon disable-element">
+                                        <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.multilink)">
+                                            <div>
+                                                &#9998;
+                                            </div>
+                                        </div>
+                                        <span>Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="group-content">
+                                <div class="stack-edit">
+                                    <label style="grid-area:label">Multilinks</label>
+                                    <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:multilink']"
+                                        [choice]="ccView.forms.newThemeEditor.value['multilink']" choiceType="template"
+                                        (ddChoice)="ccView.addNewOverride('multilink', true, $event)" 
+                                        (ddOpen)="closeOtherDropDowns('theme:multilink')"></app-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                    -->
+                    <div class="note-template line-customization" [ngStyle]="elementService.templates[ccView.forms.newThemeEditor.value['note']]?.templateVisual" style="grid-area: note;">
+                        <div class="disable-cover" [ngClass]="{'disabled-type': ccView.forms.newThemeEditorDisabled.note}">
+                            <div class="disable-element-wrapper">
+                                <div class="disable-element">
+                                    <span>Disable</span>
+                                    <div (click)="ccView.toggleNewThemeEditorDisable('note')">
+                                        <div [ngClass]="{'invisible-text': !ccView.forms.newThemeEditorDisabled.note}">
+                                            &#10003;
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="edit-template-icon disable-element">
+                                    <div (click)="ccView.editTemplate(ccView.forms.newThemeEditor.value.note)">
+                                        <div>
+                                            &#9998;
+                                        </div>
+                                    </div>
+                                    <span>Edit</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group-content">
+                            <div class="stack-edit">
+                                <label style="grid-area:label">Notes</label>
+                                <app-drop-down style="width:100%;grid-area:input" [listItems]="elementService.templateUIList" [open]="openDD['theme:note']"
+                                    [choice]="ccView.forms.newThemeEditor.value['note']" choiceType="template"
+                                    (ddChoice)="ccView.addNewOverride('note', true, $event, true)" 
+                                    (ddOpen)="closeOtherDropDowns('theme:note')"></app-drop-down>
+
+                                <!--
+                                    <select (input)="ccView.updateCustomizationFromForm()"
+                                        style="grid-area:input" [formControlName]="'note'">
+                                        <option value=''>(none)</option>
+                                        <option *ngFor="let template of elementService.templateUIList" [value]="template">{{elementService.templates[template].templateName}}</option>
+                                    </select>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="template-close sub-close" (click)="closeOtherDropDowns();ccView.closeCCView()">
+            X
+        </div>
+        <div *ngIf="ccView.mode === 'templateEdit' || ccView.mode === 'themeEdit'" class="template-view-mode" [ngClass]="{'greyed-out': (ccView.mode === 'templateEdit' && ccView.visualizationOptions.off) || (ccView.mode === 'themeEdit' && ccView.themeVisualizationOptions.off)}">
+            <div class="view-mode-title">
+                Visualization
+            </div>
+            <div class="view-option" [ngClass]="{'greyed-out': (ccView.mode === 'templateEdit' && ccView.visualizationOptions.off) || (ccView.mode === 'themeEdit' && ccView.themeVisualizationOptions.off)}">
+                <div class="label">Strict</div>
+                <div (click)="ccView.setVisualizationMode('strict')" class="checkbox">
+                    <div [ngClass]="{'invisible': (ccView.mode === 'templateEdit' && !ccView.visualizationOptions.strict) || (ccView.mode === 'themeEdit' && !ccView.themeVisualizationOptions.strict)}">
+                        &#10003;
+                    </div>
+                </div>
+            </div>
+            <div class="view-option off-control">
+                <div class="label">Off</div>
+                <div (click)="ccView.setVisualizationMode('off')" class="checkbox">
+                    <div [ngClass]="{'invisible':(ccView.mode === 'templateEdit' && !ccView.visualizationOptions.off) || (ccView.mode === 'themeEdit' && !ccView.themeVisualizationOptions.off)}">
+                        &#10003;
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hanging-button-right" *ngIf="ccView.mode != 'themeEdit' || elementService.currentTheme != themeEditUI" (click)="ccView.generalSubmission()">
+            {{ccView.mobile ? '&#10003;' : 'Save'}} 
+        </div>
+        <div class="hanging-button-left" *ngIf="ccView.mode === 'newCustomization'" (click)="ccView.editAsTemplate()">
+            {{ccView.mobile ? 'S' : 'Save As Template'}}
+        </div>
+        <div class="hanging-button-left" *ngIf="ccView.mode === 'themeEdit'" (click)="ccView.generalSubmission(true)">
+            {{ccView.mobile ? 'S' : 'Save and Apply'}}
+        </div>
+    </div>
+    <div id="element-type-box" ngDraggable class="template-viewer new-customization-main-viewer element-type-viewer" *ngIf="ccView.mode === 'elementType'"
+        [ngStyle]="ccView.locationStyling">
+        <div class="cc-view-header">
+            <div class="cc-view-header-text">
+                Create a New Element
+            </div>
+        </div>
+        <div class="sub-template-viewer-wrapper sub-element-viewer-wrapper">
+            <div class="sub-template-viewer" style="padding: 2px">
+                <div class="option-container element-type-container">
+                    <div class="wide-option" *ngFor="let type of elementService.padElements"
+                        (click)="ccView.createNewElement(type)" (mouseenter)="setHovering(type,true)" (mouseleave)="setHovering(type,false)">
+                        <div class="element-creation-title" [ngClass]="{'title-shifted': hovering[type]}">
+                            {{type | firstUpperCase}}
+                        </div>
+                        <div class="element-creation-description" [ngClass]="{'description-showing': hovering[type]}">
+                            {{elementService.padElementDescriptions[type]}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="template-close sub-close" (click)="ccView.enableMain(false)">
+            X
+        </div>
+    </div>
+    <div class="template-viewer" *ngIf="ccView.mode === 'confirmDelete'">
+        <div class="sub-template-viewer">
+            <div class="preview-header">
+                Are you sure you want to delete this Element?
+            </div>
+            <div class='form-buttons'>
+                <input class="form-button" type="submit" value="No" (click)="ccView.elementAwaitingDeletion = undefined;ccView.enable(false);">
+                <input class="form-button" type="submit" value="Yes" (click)="ccView.deleteElement(ccView.elementAwaitingDeletion,true);ccView.enableMode('confirmDelete',false);">
+            </div>
+        </div>
+    </div>
+</div>

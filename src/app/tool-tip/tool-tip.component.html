@@ -1,0 +1,12 @@
+<div class="master-wrapper">
+    <div class="tool-tip-wrapper" [ngStyle]="service.locationStyling"
+        [id]="service.toolTipBoxID">
+        <div class="tool-tip-box-wrapper" [ngStyle]="service.xOffsetStyling">
+            <div class="tool-tip-box" [ngStyle]="elementService.elements[service.toolTipUID]?.parsedCustomization.reverseTextTag">
+                {{service.text}}
+            </div>
+        </div>
+        <div class="tool-tip-point" [ngStyle]="elementService.elements[service.toolTipUID]?.parsedCustomization.textTag"
+            [ngClass]="{'bottom-point': service.above}"></div>
+    </div>
+</div>

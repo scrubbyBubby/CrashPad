@@ -1,0 +1,877 @@
+.container-wrapper
+    display: inline-block
+    border: 1px solid black
+    padding: 5px
+
+.container
+    padding: 10px 15px
+    border: 1px solid black
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+
+.container-element
+    padding: 10px
+    width: clamp(416px, 416px, 416px)
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    overflow: auto
+
+.main-view-element
+    display: flex
+    flex-flow: row wrap
+    justify-content: center
+    align-items: flex-start
+
+.fade-wrapper
+    pointer-events: none
+    position: relative
+    width: 100%
+    height: 100%
+
+.fade-right
+    position: absolute
+    z-index: 5
+    top: 0
+    bottom: 0
+    right: 0
+    width: 50px
+    -webkit-mask-image: -webkit-linear-gradient(right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)
+
+.fade-left
+    position: absolute
+    z-index: 5
+    top: 0
+    bottom: 0
+    left: 0
+    width: 50px
+    -webkit-mask-image: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 95%)
+
+.drag-drop-list-wrapper
+    pointer-events: none
+    max-height: calc(100% - 60px)
+    width: 100%
+    position: relative
+    flex: 1 1 0
+    > .container-items
+        height: 100%
+        box-sizing: border-box
+        pointer-events: auto
+        flex: 1 1 0
+        position: relative
+        padding: 1px
+        z-index: 2
+        display: flex
+        flex-direction: column
+        align-items: stretch
+        > .container-scroll-filter-cover
+            position: absolute
+            pointer-events: none
+            opacity: 0.8 !important
+            top: 1px
+            right: 1px
+            bottom: 1px
+            width: 16px
+        > .drag-drop-list
+            overflow-y: scroll
+            height: 100%
+            box-sizing: border-box
+            position: relative
+            z-index: -1
+
+.fade-top
+    position: absolute
+    z-index: 5
+    top: 0
+    left: 0
+    right: 0
+    height: 40px
+    -webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)
+
+.fade-bottom
+    position: absolute
+    z-index: 5
+    bottom: 0
+    left: 0
+    right: 0
+    height: 40px
+    -webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)
+
+.drag-drop-list
+    position: relative
+    z-index: 1
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+    gap: 20px
+
+.drag-drop-list div
+    padding: 0
+
+.container-items
+    flex-grow: 1
+
+.container-item
+    display: inline-block
+    margin-bottom: 40px
+
+.element-item-wrapper
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: stretch
+    align-items: stretch
+
+.new-element-icon-wrapper
+    text-aling: center
+
+.new-element-icon
+    display: block
+    background-color: white
+    color: black
+    opacity: 0.4
+    border: 2px solid black
+    border-radius: 20px
+    flex-grow: 1
+    padding: 15px 0
+    cursor: pointer
+    font-size: 50px
+    min-width: 200px
+
+.icon-bar
+    background-color: white
+    border: 1px solid grey
+    border-radius: 10px
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: flex-start
+    margin: 5px
+
+.add-element-wrapper
+    position: absolute
+    top: -15px
+    right: 152px
+    margin: 0 !important
+    div
+        margin: 0 !important
+
+.add-element-inner
+    position: relative
+    width: 100%
+    text-align: center
+
+.add-element-icon
+    background-color: white
+    padding: 0 5px !important
+    height: 30px
+    border-radius: 10px
+    font-size: 20px
+    color: black
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+    border: 1px solid grey
+    border-style: inset
+    margin: 0 !important
+
+.add-element-text
+    position: absolute
+    bottom: calc(100% + 3px)
+    font: 14px Arial
+    width: 100%
+    text-align: center
+    span
+        border-radius: 5px
+        background-color: white
+        padding: 1px 3px
+        border: 1px solid black
+
+.add-element-text-main-view
+    bottom: unset
+    top: calc(100% + 4px)
+
+.add-element-icon-main-view
+    right: 80px
+    top: -2px
+    > .add-element-inner
+        > .add-element-icon
+            border-radius: 0 0 10px 10px
+
+.add-element-icon:hover
+    background-color: #AAAAAA
+
+.container-icon-wrapper
+    position: absolute
+    top: -13px
+    right: -15px
+    margin: 0 !important
+
+    div
+        margin: 0 !important
+
+.container-icon-inner
+    position: relative
+
+.container-icon
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    width: 13px
+    height: 16px
+    border-radius: 100%
+    border: 1px solid grey
+    font-size: 16px
+    font-weight: 700
+    background-color: white
+    padding: 5px 10px 8px 10px !important
+    margin: 0 !important
+    cursor: default
+    color: black
+    z-index: 2
+
+.container-icon-text
+    white-space: nowrap
+    font: 14px Arial
+    position: absolute
+    bottom: 100%
+    left: -7px
+
+.container-icon-text-main-view
+    bottom: unset
+    top: 100%
+
+.container-icon-main-view
+    opacity: 1
+    top: -8px
+    right: -3px
+    > .container-icon-inner
+        > .container-icon
+            border-radius: 0 0 0 20px !important
+
+.drag-handle
+    position: absolute
+    top: -32px
+    left: -11px
+    z-index: 5
+    font-size: 47px
+    min-width: 30px
+    min-height: 30px
+    font-weight: 800
+    margin: 0 !important
+    color: white !important
+    cursor: grab
+    > span
+        background-color: unset !important
+        border: none !important
+        -webkit-text-stroke-width: 2px
+        -webkit-text-stroke-color: black
+
+.cdk-drag-placeholder
+    opacity: 0.7 !important
+    
+.element-item-wrapper.cdk-drag-preview
+    color: inherit
+    border: none
+    background-color: inherit
+    box-sizing: border-box
+    border-radius: 6px
+    text-align: center
+    box-shadow: 0 4px 5px -3px rgba(0,0,0,0.3),0 7px 10px 1px rgba(0,0,0,0.22),0 3px 14px 2px rgba(0,0,0,0.16)
+    cursor: grabbing
+
+.cdk-drag-animation
+    color: inherit
+    border-top: 1px dashed grey
+    border-bottom: 1px dashed grey
+
+.cdk-drop-list-dragging .cdk-drag
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1)
+
+.cdk-drag-animating
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1)
+
+.highlight
+    background-color: limegreen !important
+    color: darkgreen !important
+
+.highlight-pointer
+    background-color: lightgreen
+    cursor: pointer
+
+.container-header
+    font-size: 1.2em
+    font-weight: 600
+    min-height: unset !important
+    max-height: unset !important
+    height: unset !important
+    min-width: unset !important
+    max-width: unset !important
+    box-shadow: none !important
+    box-sizing: border-box
+    align-self: stretch
+
+.container-header-wrapper
+    position: relative
+    width: 100%
+    display: flex
+    justify-content: center
+    border-width: 2px !important
+    border-top: none !important
+    border-left: none !important
+    border-right: none !important
+    border-bottom: 2px solid grey
+
+.big-header-wrapper
+    border-bottom: none !important
+    background-color: unset !important
+
+.big-header
+    background-color: auto
+    font-size: 40px
+    font-weight: 700
+    bottom: 100%
+    display: flex
+    flex-direction: column
+    white-space: nowrap
+    align-items: center
+    border-radius: 0 0 30px 30px !important
+    white-space: pre-wrap
+    max-width: 80vw !important
+
+.big-header.noneditable-text
+    margin-top: -5px !important
+    margin-bottom: 13px !important
+
+.big-header.editable-text
+    margin-top: -8px !important 
+    margin-bottom: 10px !important
+
+.editable-text
+    box-sizing: border-box
+    border-width: 3px !important
+    border-radius: 12px
+    border-style: double !important
+    padding: 5px 10px !important
+    pointer-events: auto
+    cursor: text
+    margin: 3px
+
+.editable-text.big-header
+    border-style: solid double double double !important
+
+.editable-text:hover, .editable-text:focus
+    border: 3px solid !important
+    outline: none
+
+.noneditable-text
+    box-sizing: border-box
+    padding: 5px 10px !important
+    pointer-events: auto
+    cursor: default
+    margin: 6px
+
+.no-event
+    pointer-events: none !important
+
+.no-border
+    border-color: rgba(0,0,0,0) !important
+
+.main-view-pad-list-wrapper
+    width: 100%
+    height: 90%
+    margin-top: 15px
+
+.navigator-scroll-filter-cover
+    position: absolute
+    z-index: 10
+    pointer-events: none
+    opacity: 0.8 !important
+    top: 0
+    right: 0
+    bottom: 0
+    width: 16px
+
+.scroll-filter-cover
+    position: absolute
+    z-index: 10
+    top: 0
+    right: 0
+    left: 0
+    height: 50px
+    opacity: 0.8 !important
+
+.main-view-pad-list::-webkit-scrollbar
+    box-shadow: inset 0 0 6px 1px
+    height: 50px
+
+.main-view-pad-list
+    pointer-events: auto
+    scroll-padding-left: 50px
+    overflow-x: scroll
+    overflow-y: hidden
+    padding: 20px
+    display: flex
+    align-items: stretch
+    justify-content: flex-start
+    flex-wrap: nowrap
+    height: 94%
+    gap: 20px
+    transform: rotateX(180deg)
+    scroll-snap-type: x
+    scroll-behavior: smooth
+    align-self: stretch
+    > .pad-column
+        display: flex
+        flex-direction: column
+        scroll-snap-align: start
+        transform: rotateX(180deg)
+    > .pad-column:first-child
+        margin-left: 30px
+    > .pad-column:last-child
+        padding-right: 50px
+
+.navigator-pad
+    margin-right: 50px
+    position: relative
+    height: 100%
+    > div
+        height: 100%
+
+.pad-navigator
+    width: calc(100% - 6px)
+    height: 100%
+    max-height: 100%
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    position: absolute
+    top: 0
+    overflow: hidden
+    box-sizing: border-box
+
+.pad-navigator-close-pad
+    position: absolute
+    top: -8px
+    left: -8px
+    width: 30px
+    height: 30px
+    > .close-pad-icon:hover
+        filter: brightness(0.8)
+    > .close-pad-icon
+        cursor: pointer
+        border-radius: 100% !important
+        border-width: 2px !important
+        font-size: 24px !important
+        font-weight: 700 !important
+        display: grid
+        place-items: center
+        padding: 3px
+        width: 100%
+        height: 100%
+
+
+.pad-navigator-header
+    min-height: 50px
+    display: grid
+    place-items: center
+    border-width: 2px !important
+    border-style: solid !important
+    border-top: none !important
+    border-left: none !important
+    border-right: none !important
+    border-bottom: 2px solid grey
+
+.pad-navigator-tabs
+    min-height: 50px
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: stretch
+    border-width: 2px !important
+    border-style: solid !important
+    border-top: none !important
+    border-left: none !important
+    border-right: none !important
+    border-bottom: 2px solid grey
+    > .pad-navigator-tab
+        display: grid
+        place-items: center
+        flex: 1 1 0
+        border-width: 2px !important
+        border-style: solid !important
+        border-top: none !important
+        border-left: none !important
+        border-bottom: none !important
+        border-right: 2px solid grey
+    > .pad-navigator-tab:last-child
+        border-right: none !important
+    > .pad-navigator-tab.pressed
+        box-shadow: inset 1px 2px 8px 3px rgba(0, 0, 0, 0.4)
+
+.cdk-drag.cdk-drag-preview
+    position: relative
+
+.pad-navigator-search
+    padding: 5px 20px
+    gap: 5px
+    display: grid
+    grid-template-rows: auto
+    grid-template-columns: auto 1fr auto
+    grid-template-areas: 'text input clear'
+    border-width: 2px !important
+    border-style: dashed !important
+    border-top: none !important
+    border-left: none !important
+    border-right: none !important
+    position: relative
+    > .pad-navigator-search-text
+        padding: 5px
+        grid-area: text
+    > .pad-navigator-search-clear-input
+        padding: 5px
+        width: 30px
+        display: grid
+        place-items: center
+        font-size: 20px !important
+        margin: 2px !important
+        cursor: pointer
+    > .pad-navigator-search-clear-input:hover
+        margin: 0px !important
+        border-radius: 10px !important
+        border-width: 2px !important
+        border-style: solid !important
+    > .pad-navigator-search-input
+        text-align: left
+        font-size: 90%
+        white-space: nowrap
+        overflow-x: auto
+        border: 1px solid grey
+        margin: 2px
+        padding: 3px 5px
+        grid-area: input
+        > .end-spacer
+            position: absolute
+            top: 5px
+            right: 22px
+            bottom: 5px
+            width: 10px
+            -webkit-mask-image: -webkit-linear-gradient(right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 7%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%)f
+    > .pad-navigator-search-input::-webkit-scrollbar
+        width: 0
+        display: none
+
+.cdk-drag-preview
+    display: block
+    div
+        pointer-events: none !important
+
+.pad-navigator-list
+    position: relative
+    min-height: calc(100% - 109px)
+    max-height: calc(100% - 109px)
+    padding: 1px 0
+    > .fade-top
+        position: absolute
+        top: 0
+        right: 15px
+        left: 0
+        height: 50px
+        -webkit-mask-image: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)
+    > .fade-bottom
+        position: absolute
+        right: 15px
+        left: 0
+        bottom: -2px
+        height: 50px
+        -webkit-mask-image: -webkit-linear-gradient(bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%)
+    > .pad-navigator-list-items
+        height: 100%
+        overflow-y: scroll
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        align-items: stretch
+        max-height: 100%
+        scroll-snap-type: y
+        scroll-behavior: smooth
+        > .pad-navigator-list-item.dummy
+            min-height: 0px
+        > .drag-wrapper
+            position: relative
+            > .pad-navigator-list-item:hover
+                filter: brightness(0.8)
+                > div
+                    animation-name: bounce-text
+                    animation-duration: 300ms
+                    animation-timing-function: linear
+                    animation-direction: forwards
+            > .pad-navigator-list-item:nth-child(odd)
+                > div
+                    animation-direction: reverse !important
+            > .pad-navigator-list-item
+                transition: all 200ms ease-in, padding 100ms ease-in
+                cursor: pointer
+                padding: 5px
+                position: relative
+                border-width: 2px !important
+                border-style: solid !important
+                border-top: none !important
+                border-right: none !important
+                border-left: none !important
+                > .pad-navigator-drag-handle
+                    position: absolute
+                    top: 5px
+                    left: 10px
+                    bottom: 0
+                    width: 50px
+                    cursor: grab
+                > .pad-navigator-list-item-number
+                    position: absolute
+                    top: 0
+                    left: 0
+                    min-width: 18px
+                    height: 18px
+                    text-align: center
+                    display: grid
+                    padding: 1px 2px 2px 1px
+                    place-items: center
+                    border-width: 2px !important
+                    border-style: solid !important
+                    border-top: none !important
+                    border-left: none !important
+                    border-radius: 0 0 10px 0 !important
+                    position: absolute
+                    top: 0
+                    left: 0
+                    font-size: 18px !important
+                > .pad-navigator-list-item-text
+                    flex: 1 1 0
+                    display: grid
+                    place-items: center
+
+@keyframes bounce-text
+    0%
+        transform: translate(0px, 0px)
+    30%
+        transform: translate(0px, 5px)
+    70%
+        transform: translate(0px, -3px)
+    85%
+        transform: translate(0px, 2px)
+    95%
+        transform: translate(0px, -1px)
+    100%
+        transform: translate(0px, 0px)
+
+@keyframes shake-text
+    0%
+        transform: rotate(0)
+    30%
+        transform: rotate(4deg)
+    70%
+        transform: rotate(-3deg)
+    85%
+        transform: rotate(2deg)
+    95%
+        transform: rotate(-1deg)
+    100%
+        transform: rotate(0)
+
+.pad-control-icon-bar
+    position: relative
+    z-index: 2
+    display: flex
+    align-items: stretch
+
+.pad-control-sub-wrapper
+    flex: 1 1 0
+    display: flex
+    align-items: stretch
+    > div
+        flex: 1 1 0
+
+.pad-button
+    border-width: 2px !important
+    border-style: solid !important
+    width: 100px
+    height: 50px
+    display: flex
+    justify-content: center
+    align-items: center !important
+    font-size: 40px
+    cursor: pointer
+
+.pad-button.move-left
+    border-radius: 10px 0 0 10px !important
+
+.pad-button.move-right
+    border-radius: 0 10px 10px 0 !important
+    margin-left: -2px
+
+.manage-pads
+    border-radius: 10px !important
+    margin-right: 50px
+    align-items: start
+    > div
+        position: relative
+        bottom: 3px
+
+.add-pad
+    border-radius: 10px !important
+    margin-left: 50px
+    align-items: start
+    > div
+        position: relative
+        bottom: 3px
+
+.move-pads:hover
+    filter: brightness(0.8)
+    > div
+        transform: scale(1.1)
+
+.invisible
+    opacity: 0 !important
+    pointer-events: none
+
+.visible
+    opacity: 1 !important
+    pointer-events: auto !important
+
+.no-flow
+    position: absolute
+    opacity: 0
+
+.main-icon-wrapper
+    position: absolute
+    top: 0px
+    left: 0px
+    width: 270px
+    height: 120px
+    > .main-icon-sub-wrapper
+        padding: 10px
+        > svg, g, path
+            fill: inherit !important
+            stroke: inherit !important
+        > img.soft-light
+            mix-blend-mode: luminosity !important
+
+svg, g, path, rect, circle
+    fill: unset !important
+    stroke: unset !important
+
+.small-icon-wrapper
+    display: none
+    position: absolute
+    top: 7px
+    left: 2px
+    width: 70px
+    height: 100px
+    > .main-icon-sub-wrapper
+        padding: 10px
+        > img.soft-light
+            mix-blend-mode: luminosity !important
+
+.pad-button.main-menu
+    display: none
+    > .small-icon-sub-wrapper
+        > svg
+            position: relative
+            top: -15px
+            transform: rotate(270deg) scale(0.9) !important
+
+.pad-button.pinned-checklist
+    display: none
+    > div
+        display: inline-block
+        transform: rotate(90deg)
+
+@media screen and (max-width: 1150px)
+    .main-icon-wrapper
+        display: none
+    .small-icon-wrapper
+        display: block
+
+@media screen and (max-width: 700px)
+    .pad-navigator
+        width: 95vw !important
+        max-width: 95vw !important
+    .main-view-pad-list-wrapper
+        position: absolute
+        top: 30px
+        bottom: 107px
+        height: unset !important
+        margin: 0
+    .container-element
+        width: auto !important
+        padding: 15px 10px
+    #main-pad-view-container
+        height: calc(100% - 10px) !important
+        scroll-padding: 0px !important
+        grid-gap: 0px !important
+        gap: 0px !important
+        padding: 5px 0px !important
+    #main-pad-view-container::-webkit-scrollbar
+        height: 20px !important
+    .scroll-filter-cover
+        height: 20px
+    .pad-column
+        min-width: calc(100vw - 20px)
+        margin: 0px !important
+        padding: 0px 10px !important
+    .small-icon-wrapper
+        display: none !important
+    .pad-control-icon-bar
+        position: absolute
+        bottom: 0
+        left: -2px
+        z-index: 10
+        width: 100vw
+        height: 106px
+        flex-wrap: wrap
+        order: 10
+        border-top: 1px solid !important
+        .first-wrapper
+            order: 2
+        .pad-control-sub-wrapper
+            width: 100vw !important
+            flex: unset !important
+            .move-right
+                order: 3
+            .pinned-checklist
+                order: 3
+            .pad-button.main-menu, .pad-button.pinned-checklist
+                display: block
+            .pad-button
+                width: unset !important
+                border-radius: 0 !important
+                margin: 0 !important
+                flex: 1 1 0
+        .first-wrapper
+            .pad-button
+                border-bottom: none !important
+    .container-header-wrapper
+        width: calc(100% + 10px)
+        .container-header
+            padding: 0 !important
+            margin: 0 !important
+            border: none !important
+            white-space: pre-line
+            max-width: 90%
+        .big-header
+            position: relative
+            margin-bottom: 0 !important
+            top: 3px
+            font-size: 20px !important
+            white-space: nowrap
+    .drag-drop-list-wrapper
+        max-height: calc(100% - 44px) !important
+    .drag-drop-list
+        gap: 10px
+        padding: 10px !important

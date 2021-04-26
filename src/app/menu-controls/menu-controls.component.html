@@ -1,0 +1,115 @@
+<div class="menu-control-main-wrapper">
+    <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag"
+        class="menu-control-main" [ngClass]="{'menu-control-closed':containerService.controlOpen === false,'menu-control-open':containerService.controlOpen}">
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" 
+            class="reverse-z-index menu-control-header" (click)="containerService.setMainMenu()">
+            Main Menu
+        </div>
+        <div class="reverse-z-index customize-utilize-control">
+            <div class="customize-utilize-sub-wrapper">
+                <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly"
+                    (click)="closeControl();elementService.setMode('utilize')" class="raised-button" [ngClass]="{'pressed-button': elementService.mode === 'utilize'}">
+                    Utilize
+                </div>
+                <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly"
+                    (click)="closeControl();elementService.setMode('customize')" class="raised-button" [ngClass]="{'pressed-button': elementService.mode === 'customize'}">
+                    Customize
+                </div>
+            </div>
+        </div>
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly" 
+            (click)="closeControl();executeAction(item)" class="reverse-z-index main-menu-item" *ngFor="let item of menuItems">
+            {{item.text}}
+        </div>
+    </div>
+</div>
+<div class="overlay-control-main-wrapper">
+    <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" 
+        class="overlay-control-main" [ngClass]="{'overlay-control-closed':checklistOverlayService.open === false,'overlay-control-open':checklistOverlayService.open}">
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" (click)="toggleOverlay()" class="reverse-z-index overlay-header">
+            {{elementService.elements[checklistOverlayService.overlayUI]?.content.title || 'Pinned Checklist'}}
+        </div>
+        <div class="overlay">
+            <div *ngIf="checklistOverlayService.overlayUI != undefined; else placeholderChecklist"
+                class="sub-content" id="new-checklist-overlay-content" (click)="checklistOverlayService.adjustExpansion()">
+                <app-checklist [mode]="'utilize'" [overlay]="true" [uid]="checklistOverlayService.overlayUI"></app-checklist>
+                <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" (click)="checklistOverlayService.setOverlayUI();checklistOverlayService.setOpen(false)" class="top-left-icon">X</div>
+            </div>
+            <ng-template #placeholderChecklist>
+                <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly" class="content">
+                    You can use this overlay to save checklists so they're always on top.
+                </div>
+            </ng-template>
+        </div>
+        <div class="expand-button-wrapper">
+            <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" class="expand-button" (click)="setExpanded()" [ngClass]="{'hidden':checklistOverlayService.overlayUI === undefined}">
+                <span class="icon" [ngClass]="{'upside-down':overlayExpanded}">&#709;</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mobile-main-menu">
+    <div class="mobile-main-menu-sub-wrapper" [ngClass]="{'mobile-menu-open': containerService.controlOpen}"
+        [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag">
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" class="menu-control-header"
+            (click)="containerService.closeOtherMenusIfMobile('mainMenu');containerService.setMainMenu();containerService.holdHoveredElement()">
+            Main Menu
+        </div>
+        <div class="mobile-customize-utilize-control"
+            id="mobile-customize-utilize-box" [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly">
+            <div class="utilize" [ngClass]="{'selected-option': elementService.mode === 'utilize'}" (click)="setSlideChoice('utilize')">
+                Utilize
+            </div>
+            <div class="customize" [ngClass]="{'selected-option': elementService.mode === 'customize'}" (click)="setSlideChoice('customize')">
+                Customize
+            </div>
+            <div cdkDrag cdkDragBoundary=".mobile-customize-utilize-control"
+                id="mobile-customize-utilize-slide"
+                [cdkDragFreeDragPosition]="slideDragPosition"
+                (cdkDragStarted)="neuterTransition();modeLoopEngine(true)"
+                (cdkDragEnded)="menuDragEnd($event);modeLoopEngine(false)"
+                class="slide-block" [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.reverseTextTag">
+                {{displayMode | firstUpperCase}}
+            </div>
+
+            <!--
+                <div class="scroll">
+                    <div class="scroll-box" (scroll)="checkModeSwitch($event)" id="customize-utilize-scroll-switch">
+                        <div><div></div></div><div><div></div></div>
+                    </div>
+                    <div class="scroll-filter-cover-wrapper">
+                        <div class="scroll-filter-cover" [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.fontColorAsBackground">
+        
+                        </div>
+                    </div>
+                </div>
+            -->
+        </div>
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly" 
+            (click)="closeControl();executeAction(item)" class="reverse-z-index main-menu-item" *ngFor="let item of menuItems">
+            {{item.text}}
+        </div>
+    </div>
+</div>
+<div class="mobile-overlay">
+    <div class="mobile-overlay-sub-wrapper" [ngClass]="{'mobile-menu-open': checklistOverlayService.open}"
+        [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag">
+        <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" (click)="toggleOverlay();containerService.holdHoveredElement()" class="reverse-z-index overlay-header">
+            Pinned Checklist
+        </div>
+        <div class="overlay">
+            <div class="overlay-sub-wrapper">
+                <div *ngIf="checklistOverlayService.overlayUI != undefined; else placeholderChecklist"
+                    class="sub-content" id="new-checklist-overlay-content" (click)="checklistOverlayService.adjustExpansion()">
+                    <app-checklist [mode]="'utilize'" [overlay]="true" [uid]="checklistOverlayService.overlayUI"></app-checklist>
+                    <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.textTag" (click)="checklistOverlayService.setOverlayUI();checklistOverlayService.setOpen(false)" class="top-left-icon">X</div>
+                </div>
+                <ng-template #placeholderChecklist>
+                    <div [ngStyle]="elementService.elements['masterContainer']?.parsedCustomization.backgroundAndTextOnly" class="content">
+                        You can use this overlay to save checklists so they're always on top.
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="main-wrapper" id="alert-overlay-sub-wrapper">
+    <div class="sub-wrapper">
+        <div class="message">
+            <div class="alert-text" *ngFor="let alert of service.alertList" [ngClass]="{'fading': service.fading[alert.message]}">
+                {{alert.message}}
+            </div>
+        </div>
+        <div class="countdown">
+            {{service.countdown}}
+        </div>
+        <div class="bottom-right-icon">
+            
+        </div>
+    </div>
+</div>

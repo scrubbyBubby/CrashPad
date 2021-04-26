@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20cm"
+   height="10cm"
+   viewBox="0 0 200 100"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="CrashPad Rocket Left Arrow (Raw).svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="-202.99095"
+     inkscape:cy="179.71075"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="cm"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-197)">
+    <g
+       id="g4490"
+       transform="matrix(-1.2554268,0,0,1.3286608,219.29259,-80.118375)"
+       style="stroke-width:0.77427858">
+      <path
+         inkscape:label="path4497"
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.20486124px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 71.613077,228.84216 -38.246756,4.63665 16.084237,6.70771 -33.878424,6.5238 33.701026,7.35306 -15.879338,5.1845 38.153396,5.93981 z"
+         id="path4577"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccc" />
+      <g
+         style="stroke-width:0.4696683"
+         transform="matrix(0.0049372,1.7272255,-1.5734686,0.00619272,486.79052,120.64403)"
+         id="g5086">
+        <rect
+           style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.23483415;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="rect5080"
+           width="22.784725"
+           height="45.034916"
+           x="60.803818"
+           y="219.49184" />
+        <path
+           sodipodi:nodetypes="ccccc"
+           inkscape:connector-curvature="0"
+           id="path5082"
+           d="m 88.625877,216.91935 c -4.919926,2.16004 -21.41462,1.87887 -32.685165,4.36845 -11.323221,-1.98204 -28.12228,-1.92995 -33.909773,-3.61949 1.67351,-8.69555 25.824592,-45.57492 33.611287,-46.89562 6.966475,0.93925 31.092821,38.14435 32.983651,46.14666 z"
+           inkscape:transform-center-y="-4.8902311"
+           inkscape:transform-center-x="0.019942792"
+           style="opacity:1;fill:#030303;fill-opacity:1;stroke:none;stroke-width:0.3923209;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           transform="matrix(0.65039204,0.00317182,-0.00414014,0.55086899,36.809592,104.37365)" />
+      </g>
+    </g>
+  </g>
+</svg>

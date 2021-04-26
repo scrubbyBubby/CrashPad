@@ -1,0 +1,14 @@
+<app-new-element style="position:relative" [showControls]="showControls" [mainStyling]="elementService.elements[uid].parsedCustomization.main" 
+    [preview]="preview" [draggable]="draggable" 
+    [containerUID]="containerUID" [uid]='uid'>
+    <div *ngIf="elementService.elements[uid] != undefined" class="link-element">
+        <div class="link-target-wrapper">
+            <div id="{{uid}}-text" contenteditable spellcheck="false" class="editable-text" 
+                [ngClass]="{'hover-border':mode === 'customize' || (mode === undefined && elementService.mode === 'customize')}"
+                (input)="postText()"
+                (focus)="revealControls(false)" (blur)="revealControls(true);">
+                {{elementService.elements[uid]?.parsedCustomization.content.text || ''}}
+            </div>
+        </div>
+    </div>
+</app-new-element>

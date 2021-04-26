@@ -1,0 +1,92 @@
+.link-text
+    font: 24px Arial
+    padding: 0.5em
+
+.link-text-wrapper
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+
+.link-element
+    height: 100%
+    width: 150%
+    position: relative
+    display: flex
+    align-items: center
+    justify-content: center
+    text-decoration: none
+    color: unset
+    text-decoration: none
+    overflow: hidden
+    cursor: pointer
+
+.link-target
+    min-height: 70px
+    display: grid
+    place-items: center
+    cursor: pointer
+    padding: 5px 50px 5px 60px
+    align-self: stretch
+
+svg, g, path, rect
+    fill: unset !important
+    stroke: unset !important
+
+.no-events
+    pointer-events: none
+
+.container-icon
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    position: absolute
+    top: 10px
+    left: 10px
+    width: 40px
+    height: 40px
+    border-radius: 100%
+    border-width: 2px !important
+    border-style: solid !important
+    border: 1px solid grey
+    font-size: 30px
+    font-weight: 700
+    background-color: white
+    color: black
+    z-index: 2
+
+.editable-text
+    box-sizing: border-box
+    border-radius: 12px
+    border: 3px double rgba(0,0,0,0.6)
+    padding: 5px 10px
+    pointer-events: auto
+    cursor: text !important
+
+.editable-text:hover
+    border: 3px solid rgba(0,0,0,0.6)
+
+.noneditable-text
+    box-sizing: border-box
+    padding: 5px 10px
+    pointer-events: auto
+    border: 3px solid rgba(0,0,0,0)
+
+.invisible
+    pointer-events: none
+    opacity: 0
+
+.clickable
+    cursor: pointer
+
+.highlight
+    background-color: limegreen !important
+    color: darkgreen !important
+
+@media screen and (max-width: 700px)
+    .link-target
+        min-height: unset
+
+a
+    color: unset
+    text-decoration: unset

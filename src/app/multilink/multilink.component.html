@@ -1,0 +1,32 @@
+<app-new-element style="position:relative" [showControls]="showControls" [mainStyling]="elementService.elements[uid].parsedCustomization.main"
+    [preview]="preview" [draggable]="draggable" [containerUID]="containerUID" [uid]='uid'>
+    <div *ngIf="elementService.elements[uid] != undefined" class="link-target"
+        (click)="multilinkService.openLinks(uid)" target="_blank">
+        <div *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize'); else noEditText" 
+            id="{{uid}}-text" spellcheck="false" contenteditable class="editable-text" 
+            (focus)="revealControls(false);" (blur)="revealControls(true);postText()">
+            {{elementService.elements[uid].parsedCustomization.content.title}}
+        </div>
+        <ng-template #noEditText>
+            <div id="{{uid}}-text" class="noneditable-text">
+                {{elementService.elements[uid].parsedCustomization.content.title}}
+            </div>
+        </ng-template>
+    </div>
+    <div class="link-list">
+        <div class="link-list-sub-wrapper">
+            <div class="link-option" *ngFor="let linkTag of elementService.elements[uid].parsedCustomization.content.linkTagList"
+                [ngStyle]="elementService.elements[uid].parsedCustomization.innerReverseTextTagWRadius"
+                (click)="multilinkService.openLink(uid,linkTag)">
+                {{elementService.elements[uid].parsedCustomization.content['text'+linkTag]}}
+            </div>
+        </div>
+    </div>
+    <div [ngStyle]="elementService.elements[uid].parsedCustomization.textTag"
+        [ngClass]="{'highlight': ccView.forms.templateElements.indexOf(uid) != -1}"
+        *ngIf="!preview" class="container-icon">
+        <span class="normal-text">
+            {{elementService.elements[uid].parsedCustomization.content.linkCount}}
+        </span>&#9741;
+    </div>
+</app-new-element>

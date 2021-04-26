@@ -1,0 +1,103 @@
+.drop-down-container
+    position: relative
+    z-index: 1
+    display: flex
+    flex-direction: column
+    align-items: stretch
+
+.mock-placeholder
+    display: inline-block
+    opacity: 0
+    pointer-events: none
+    border: 2px solid black
+
+.choice-view-wrapper
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    z-index: 10
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    border-width: 1px
+    border-style: solid
+    margin: 1px
+
+.choice-list
+    overflow-y: auto
+    overflow-x: hidden
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    scroll-behavior: smooth
+    scroll-snap-type: y mandatory
+
+.choice
+    height: clamp(20px, 20px, 20px)
+    font-size: 16px
+    padding: 2px
+    display: flex
+    align-items: center
+    scroll-snap-align: start
+    scroll-snap-stop: always
+
+.bottom-border
+    border-bottom: 1px solid black
+
+.bottom-border:last-child
+    border-bottom: none !important
+
+.sub-choice
+
+.thick-border
+    margin: 0px !important
+    border-width: 2px !important
+
+.stack-top
+    z-index: 100
+
+.selected
+    background-color: #CCCCCC
+
+.shadow
+    box-shadow: 2px 3px 5px 1px rgba(0,0,0,0.3)
+
+.choice-text
+    flex: 1 1 0
+
+.expand-arrow
+    width: 20px
+    height: 20px
+    display: grid
+    place-items: center
+    transition: all 300ms ease-in-out
+    transform: rotate3d(1, 0, 0, 180deg)
+
+.half-rotation
+    transform: rotate3d(1, 0, 0, 0deg)
+
+.no-border
+    border-top: none !important
+
+.flipped-up.thick-border
+    > .choice
+        border-bottom: none !important
+        border-top: 2px solid
+
+.flipped-up
+    transform: rotate(180deg) translate3d(0, -28px, 0)
+    transform-origin: top center
+    > div
+        transform: rotate(-180deg)
+        transform-origin: center center
+
+.no-display
+    position: absolute !important
+    opacity: 0 !important
+    pointer-events: none !important
+
+@media screen and (max-width: 700px)
+    .choice
+        height: unset !important

@@ -1,0 +1,1583 @@
+/* Todo */
+/* Fix scroll bar in customization window to not clip and have custom styling */
+
+.template-wrapper
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 100
+    pointer-events: none
+
+.template-cover
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    z-index: 10
+    opacity: 0.7
+    background-color: black
+
+.template-viewer
+    position: absolute
+    transform: translate3d(100px, 100px, 0px)
+    padding-top: 0
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: stretch
+    background-color: white
+    border: 5px double grey
+    border-radius: 0
+    opacity: 1 !important
+    pointer-events: auto !important
+
+.template-close
+    display: inline-flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    position: absolute
+    top: 35px
+    right: 35px
+    border-radius: 100%
+    border: 2px solid grey
+    padding: 5px
+    width: 30px
+    height: 30px
+    cursor: pointer
+    background-color: white
+
+.template-view-mode
+    position: absolute
+    z-index: -1
+    top: -39px
+    left: 20px
+    height: 32px
+    border-radius: 10px 10px 0 0
+    border: 2px solid grey
+    background-color: white
+    display: flex
+    gap: 10px
+    align-items: stretch
+    justify-content: flex-start
+    padding: 0 10px
+    > .view-mode-title
+        font-size: 16px
+        font-weight: 600
+        display: grid
+        place-items: center
+        padding-right: 10px
+        border-right: 2px solid grey
+    > .off-control
+        > .checkbox
+            background-color: white
+    > .view-option
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        gap: 5px
+        > .label
+            font-size: 14px
+            display: grid
+            place-items: center
+        > .checkbox
+            border: 2px solid grey
+            border-radius: 6px
+            width: 20px
+            height: 20px
+            font-weight: 700
+
+.greyed-out
+    background-color: #CCCCCC
+
+.sub-close
+    top: -23px
+    right: -23px
+
+.template-close:hover
+    background-color: #f7adab
+
+.sub-template-viewer-wrapper
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: stretch
+    border-radius: 0 0 25px 25px
+    height: 100%
+    flex: 1 1 0
+
+.sub-template-viewer
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+    flex: 1 1 0
+    margin-top: 2px
+
+.cc-view-header
+    font: 30px Arial
+    text-align: center
+    cursor: move
+
+.cc-view-header-text
+    display: block
+    padding: 30px 0px
+
+.cc-view-template-name
+    padding-top: 10px
+    display: flex
+    justify-content: flex-start
+    align-items: center
+
+.cc-view-split-header
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: stretch
+
+.cc-view-split-header div,
+.cc-view-split-header form
+    flex: 0.55 1 0
+
+.header-wrapper
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    height: 100px
+
+.header
+    font: 40px Arial
+
+.option-container
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    white-space: nowrap
+    margin: -2px
+
+.sub-option-container
+    height: 1px
+    position: relative
+    display: flex
+    flex-direction: row
+    align-items: stretch
+    justify-content: flex-start
+    flex: 1 1 0
+
+.fixed-customizations
+    border-bottom: 2px solid grey
+    .form-item:last-child
+        border-bottom: none
+
+.option-customizations
+    display: inline-flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+    overflow-y: auto
+    background-color: white
+    border: 2px solid grey
+    border-bottom: none
+    border-radius: 30px 30px 0 0
+    margin: 0 -2px -2px -2px
+    flex: 1 1 0
+
+.template-option-wrapper
+    padding-bottom: 20px
+
+.template-option
+    width: calc(100% - 30px)
+    display: inline-flex
+    flex-direction: row
+    font: 27px Arial
+    padding: 0.5em
+    border: 2px solid grey
+    border-radius: 16px
+    text-align: center
+    margin-bottom: 20px
+    align-items: center
+
+.template-name
+    font: 27px Arial
+    flex-grow: 1
+
+.template-action
+    width: 60px
+    height: 60px
+    border: 2px solid grey
+    margin: 5px
+    border-radius: 12px
+    font-size: 27px
+    display: flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+
+.disabled
+    opacity: 0.3
+    pointer-events: none
+
+.soft-disabled
+    opacity: 0.3
+    pointer-events: none
+
+.form-item
+    position: relative
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    min-height: 60px
+    padding: 7px
+    padding-left: 20px
+    font-size: 18px
+    text-align: left
+    border-bottom: 2px dotted rgba(0,0,0,0.2)
+
+.form-label
+    flex: 1 1 0
+
+.important-item
+    padding: 10px 0
+    font-weight: 700
+    font-size: 30px
+    border-bottom: 2px solid grey
+
+.important-input
+    font-size: 24px
+    margin-left: 2em
+
+.form-buttons-wrapper
+    display: block
+    text-align: center
+    margin: 2px -2px -2px -2px
+
+.form-buttons
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: stretch
+    border-top: 2px solid grey
+    margin: -2px 0
+    overflow: hidden
+
+.form-button
+    background-color: white
+    padding: 15px 10px
+    border: none
+    border-right: 2px solid grey
+    cursor: pointer
+    font-size: 24px
+    flex-grow: 1
+    flex: 1 1 0
+
+.form-button:last-child
+    border-right: none
+
+.form-button:hover
+    background-color: #DEDEDE
+
+.borderless
+    border: none
+
+.selected
+    background-color: rgba(0,0,0,0.2)
+    color: rgba(0,0,0,0.7)
+
+.tab-container-wrapper
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+
+.tab-container
+    border: 2px solid grey
+    padding: 0
+    margin: -2px -2px -30px -2px
+    display: flex
+    flex-direction: row
+    justify-content: flex-start
+    align-items: center
+    overflow: hidden
+    flex: 1 1 0
+
+.tab
+    position: relative
+    width: 150px
+    text-align: center
+    padding: 1em
+    padding-bottom: calc(1em + 30px)
+    font: 20px Arial
+    display: inline-block
+    border-right: 2px solid grey
+    overflow: hidden
+    cursor: pointer
+    flex: 1 1 0
+
+.tab:last-child
+    border-right: none
+
+.custom-input
+    width: 100px
+
+.form-wrapper
+    border: 2px solid grey
+    height: 100%
+    overflow: hidden
+
+.inner-buttons
+    margin-top: 4px
+
+.outer-buttons
+    border: 2px solid grey
+    border-top: none
+    margin-bottom: 0
+    border-radius: 0 0 0 40px
+
+.outer-buttons div
+    border-radius: 0 0 0 30px
+
+.drop-down
+    display: inline-flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+    padding: 10px 0 5px 0
+
+.drop-down-view
+    display: inline-block
+    border: 2px solid grey
+    border-radius: 12px
+    padding: 0.5em 1em
+    min-width: 300px
+    cursor: pointer
+
+.drop-down-choices
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    z-index: 100
+    border: 2px solid grey
+    border-radius: 0 0 12px 12px
+    overflow: hidden
+
+.sub-drop-down-choices
+    height: 100%
+    width: 100%
+    overflow-y: scroll
+    max-height: 500px
+
+.drop-down-choices-wrapper
+    position: relative
+    top: -2px
+    display: inline-block
+    margin: 0 10px
+
+.drop-down-choice
+    border-bottom: 2px solid grey
+    padding: 0.5em 1em
+    margin: 0
+    cursor: pointer
+    background-color: white
+
+.drop-down-choice:last-child
+    border-bottom: none
+
+.preview-wrapper
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+    border: 2px solid grey
+    border-bottom: none
+    border-radius: 30px 30px 0 0
+    overflow: hidden
+    flex: 1 1 0
+    margin-right: -2px
+
+.preview
+    display: flex
+    flex-direction: row
+    justify-content: center
+    align-items: center
+    white-space: nowrap
+
+.preview-container-element
+    position: relative !important
+    top: 0 !important
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: center
+    border: 1px solid green
+    padding: 20px
+
+.preview-note-element
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: center
+
+textarea
+    text-decoration: none !important
+    min-width: 220px !important
+    min-height: 220px
+    text-align: center
+    border: none !important
+
+.preview-item
+    width: 250px
+    height: 100px
+    background-color: white
+    border: 2px solid grey
+    border-radius: 20px
+    margin-bottom: 20px
+
+.preview-item:last-child
+    margin: 0
+
+.preview-header
+    background-color: white
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 50px
+    font: 30px Arial
+    padding: 6px 20px
+    margin-bottom: 3px
+    border-radius: 30px
+
+.preview-container
+    position: relative
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    flex-grow: 1
+    padding: 30px
+    min-height: 300px
+    border: 2px solid grey
+    border-radius: 30px 30px 0 0
+    border-bottom: none
+    margin: 2px -2px -2px -2px
+
+.small-info
+    font: 16px Helvetica
+    font-weight: 600
+    flex: 1 1 0
+    text-align: right
+    padding-right: 50px
+
+.no-grow
+    padding: 0 20px !important
+    flex: 0 0 0 !important
+
+.small-info div
+    display: inline-block
+
+.small-info span
+    display: inline-block
+    padding: 0 6px
+    border-radius: 12px
+    cursor: pointer
+
+.small-info span:hover
+    background-color: rgba(0,0,0,0.3)
+
+.row-flex
+    display: flex
+    align-items: center
+    justify-content: flex-start
+
+.cc-view-input
+    display: block
+
+.template-item
+    opacity: 0.5
+
+.template-item:focus
+    opacity: 1
+
+.minimized
+    display: none
+
+.wide-button
+    min-width: 400px
+    padding: 10px
+    text-align: center
+    padding: 10px 15px
+    flex: 0.5 1 0
+    border: 2px solid grey
+    border-radius: 30px
+    margin-bottom: 20px
+    cursor: pointer
+    transition: all linear 150ms
+
+.wide-button:hover
+    background-color: rgba(0,0,0,0.15)
+    padding: 20px 20px
+
+.type-select-viewer
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+.disable-box
+    padding: 0 20px
+    text-align: center
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+
+.confirm-box
+    text-align: center
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    padding: 0 20px
+
+.checkbox
+    border-radius: 7px
+    border: 2px solid grey
+    font-size: 20px
+    height: 20px
+    width: 20px
+    overflow: hidden
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    flex: unset !important
+    cursor: pointer
+
+.top-right-box
+    position: absolute
+    top: -2px
+    right: -2px
+    text-align: center
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    border-radius: 0 0 0 7px
+    box-sizing: content-box
+
+.top-right-box .checkbox,
+.top-right-box .inverse-checkbox
+    border-radius: 0 0 0 7px
+    box-sizing: content-box
+
+.inverse-checkbox
+    border-radius: 7px
+    border: 2px solid grey
+    font-size: 20px
+    height: 20px
+    width: 20px
+    overflow: hidden
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    color: white
+    background-color: grey
+    flex: unset !important
+    cursor: pointer
+
+.invisible
+    opacity: 0
+    pointer-events: none
+
+.super-invisible
+    opacity: 0
+    display: none !important
+    pointer-events: none
+
+.checklist-item
+    max-height: 50px
+
+.no-display
+    display: none !important
+
+.no-events
+    pointer-events: none
+    opacity: 0.4
+
+.thin-line
+    opacity: 0
+    flex: unset !important
+    height: 3px
+    width: 100%
+    margin-bottom: 3px
+    background-color: black
+    border-radius: 8px
+
+.animate-thin-line
+    animation-name: reducelinear
+    animation-timing-function: linear
+    animation-duration: 1500ms
+    animation-fill-mode: forwards
+
+.highlight
+    background-color: limegreen !important
+    color: darkgreen !important
+
+
+@keyframes reducelinear
+    0%
+        opacity: 1
+    99%
+        width: 0
+        opacity: 1
+    100%
+        width: 0
+        opacity: 0
+
+.editable-text
+    border-radius: 12px
+    padding: 5px 10px
+    pointer-events: auto
+    cursor: text
+    text-align: center
+    min-width: 100px
+    max-width: 300px
+    border: 3px double rgba(0,0,0,0)
+    white-space: break-spaces
+
+.cc-view-label
+    display: inline-block
+
+.cc-view-info-wrapper
+    margin-bottom: 7px
+
+.centered
+    text-align: center
+
+.container-customization
+    grid-template-rows: max-content max-content minmax(80px, max-content) repeat(4, 1fr) !important
+    grid-template-areas: 'theme theme theme theme' 'template template template template' 'content content content content' 'font font border border' 'font font border border' 'background shadow shadow shadow' 'background shadow shadow shadow' !important
+
+.new-customization
+    display: grid
+    grid-template-columns: repeat(4, 1fr)
+    grid-template-rows: max-content minmax(80px, max-content) repeat(4, 1fr)
+    grid-template-areas: 'template template template template' 'content content content content' 'font font border border' 'font font border border' 'background shadow shadow shadow' 'background shadow shadow shadow'
+    background-color: grey
+    grid-gap: 2px
+    overflow: visible !important
+    > div
+        position: relative
+        background-color: white
+        transition: all 100ms ease-in
+        cursor: pointer
+    > .focus-group-shadow
+        position: relative
+        z-index: 10
+        transform-origin: 30% 30%
+        transform: scale(1.05, 1.05)
+        box-shadow: 5px 5px 8px 2px rgba(0,0,0,0.7)
+
+.checklist-customization
+    grid-template-rows: max-content minmax(80px, max-content) repeat(6, 1fr)
+    grid-template-areas: 'template template template template' 'content content content content' 'font font border border' 'font font border border' 'background shadow shadow shadow' 'background shadow shadow shadow' 'listitems listitems listitems checkbox' 'listitems listitems listitems checkbox'
+    > .background-customization, .shadow-customization
+        > .group-header-cover, .group-content
+            border-radius: 0 !important
+
+.theme-editor
+    grid-template-columns: 100%
+    grid-template-rows: minmax(70px, max-content) repeat(5, 1fr)
+    grid-template-areas: 'content' 'background' 'container' 'checklist' 'link' 'note'
+    > .line-customization
+    > .background-customization, .shadow-customization
+        > .group-header-cover, .group-content
+            border-radius: 0 !important
+
+.template-edit-customization
+    grid-template-rows: minmax(auto, 70px) minmax(auto, 100px) minmax(auto, 100px) minmax(auto, 100px) minmax(auto, 100px) minmax(auto, 100px) minmax(auto, 100px)
+    grid-template-areas: 'template template template template' 'font font border border' 'font font border border' 'background shadow shadow shadow' 'background shadow shadow shadow' 'listitems listitems listitems checkbox' 'listitems listitems listitems checkbox' !important
+
+.new-customization-main-viewer
+    position: relative !important
+    width: 450px !important
+    opacity: 0
+    min-height: 500px !important
+    box-shadow: 4px 2px 4px 2px rgba(0,0,0,0.4)
+    > .cc-view-header
+        >.cc-view-header-text
+            padding: 10px 0
+
+.cc-view-header
+    > .cc-view-header-text
+        padding: 10px 0
+        max-height: 70px
+
+
+.line-customization
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    border-radius: 0 !important
+    .group-content
+        display: flex
+        flex-direction: column
+        justify-content: center
+        flex: 1 1 0
+        align-self: stretch
+        > div.big-edit
+            grid-template-rows: 28px
+            > label
+                font-size: 22px
+            > input
+                font-size: 20px
+                border-radius: 10px
+        > div.small-edit
+            grid-template-rows: 28px
+            > label
+                font-size: 18px
+                font-weight: 600
+            > input
+                font-size: 18px
+                border-radius: 5px
+        > div.medium-edit
+            grid-template-rows: 30px !important
+            grid-template-columns: 10px max-content auto 10px !important
+            > label
+                font-size: 20px
+                font-weight: 600
+            > select
+                font-size: 20px
+                border-radius: 5px
+        > div.stack-edit
+            grid-template-rows: 1fr 1fr !important
+            grid-template-columns: 1fr !important
+            grid-template-areas: 'label' 'input' !important
+            padding: 8px 0 !important
+            grid-gap: 5px !important
+            place-items: center
+            > app-drop-down
+                width: calc(100% - 40px) !important
+                max-width: 300px !important
+            > label
+                font-size: 20px
+                font-weight: 600
+            > select
+                font-size: 20px
+                border-radius: 5px
+        > div.wide-edit
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 10px
+            display: grid
+            grid-template-columns: 100%
+            grid-template-rows: 25px 25px
+            grid-template-areas: 'header' 'text'
+            padding: 10px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 18px
+            > input,select
+                display: flex
+                justify-content: center
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+        > div:first-child
+            border-top: none !important
+        > div
+            border-top: 2px dashed grey
+        > div:not(.button)
+            flex: 0.1 1 0
+            padding: 5px 0
+            display: grid
+            grid-gap: 20px
+            grid-template-columns: auto 50px 300px auto
+            grid-template-areas: '. label input .'
+            > label
+                grid-area: label
+                display: grid
+                place-items: center
+            > input
+                grid-area: input
+                border: 2px solid rgba(64,224,208,0.7)
+                transition: all 100ms ease-in
+                font-size: 20px
+            > input:focus
+                outline: none
+                border: 3px solid rgba(64,224,208,0.7)
+                box-shadow: 3px 3px 5px 0 rgba(0,0,0,0.7)
+
+.square-customization
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    .group-content
+        display: grid
+        width: 100%
+        height: calc(100% - 5px)
+        background-color: grey
+        grid-gap: 2px
+        grid-template-columns: repeat(2, 1fr)
+        grid-template-rows: repeat(2, 1fr)
+        grid-template-areas: 'top-left top-right' 'bottom-left bottom-right'
+        flex: 1 1 0
+        > div:last-child
+            border-right: none
+        > div.focus-shadow
+            position: relative
+            z-index: 10
+            transform-origin: 30% 30%
+            transform: scale(1.05, 1.05)
+            box-shadow: 4px 4px 4px 2px rgba(0,0,0,0.5)
+        > div
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 1px
+            display: grid
+            grid-template-columns: 1fr
+            grid-template-rows: 1fr 1fr max-content
+            grid-template-areas: 'header' 'text' 'color'
+            padding: 5px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 18px
+            > input:nth-child(2)
+                margin-bottom: 2px
+            > input,select
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+        > div.wide-edit
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 10px
+            display: grid
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: 'header' 'text'
+            padding: 10px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 18px
+            > input,select
+                display: flex
+                justify-content: center
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+
+.six-square-customization
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    .group-content
+        display: grid
+        width: 100%
+        height: calc(100% - 5px)
+        background-color: grey
+        grid-gap: 2px
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: repeat(2, 1fr)
+        grid-template-areas: 'top-left top-middle top-right' 'bottom-left bottom-middle bottom-right'
+        flex: 1 1 0
+        > div:last-child
+            border-right: none
+        > div.focus-shadow
+            position: relative
+            z-index: 10
+            transform-origin: 30% 30%
+            transform: scale(1.05, 1.05)
+            box-shadow: 4px 4px 4px 2px rgba(0,0,0,0.5)
+        > div
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 2px
+            display: grid
+            grid-template-columns: 1fr
+            grid-template-rows: 1fr 1fr max-content
+            grid-template-areas: 'header' 'text' 'color'
+            padding: 5px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 16px
+                width: 100%
+                white-space: pre-wrap
+                text-align: center
+            > input:nth-child(2)
+                margin-bottom: 2px
+            > input,select
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+        > div.wide-edit
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 5px
+            display: grid
+            grid-template-columns: 100%
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: 'header' 'text'
+            padding: 10px 5px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 16px
+                width: 100%
+                white-space: pre-wrap
+                text-align: center
+            > input,select
+                display: flex
+                justify-content: center
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+
+.two-square-customization
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    > .group-header-cover
+        display: block
+        > .inner-wrapper
+            width: 100%
+            > span
+                transform: rotate(90deg) translate(0, 13px)
+    .group-content
+        display: grid
+        width: 100%
+        height: 100%
+        background-color: grey
+        grid-gap: 2px
+        grid-template-columns: 1fr
+        grid-template-rows: 1fr 1fr
+        grid-template-areas: 'top' 'bottom'
+        flex: 1 1 0
+        > div:last-child
+            border-right: none
+        > div.focus-shadow
+            position: relative
+            z-index: 10
+            transform-origin: 30% 30%
+            transform: scale(1.05, 1.05)
+            box-shadow: 4px 4px 4px 2px rgba(0,0,0,0.5)
+        > .small-edit
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 2px
+            display: grid
+            grid-template-columns: 1fr
+            grid-template-rows: 1fr 1fr max-content
+            grid-template-areas: 'header' 'text' 'color'
+            padding: 5px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 18px
+            > input:nth-child(2)
+                margin-bottom: 2px
+            > input,select
+                display: flex
+                justify-content: center
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+        > .wide-edit
+            background-color: white
+            transition: all 100ms ease-in
+            grid-gap: 10px
+            display: grid
+            grid-template-columns: 1fr
+            grid-template-rows: repeat(2, 1fr)
+            grid-template-areas: 'header' 'text'
+            padding: 10px
+            > label
+                font-weight: 600
+                display: grid
+                place-items: center
+                font-size: 18px
+            > input,select
+                display: flex
+                justify-content: center
+                max-height: 30px
+                font-size: 18px
+            > div
+                display: flex
+                justify-content: center
+                > input
+                    font-size: 18px
+
+.font-customization
+    grid-area: font
+
+.border-customization
+    grid-area: border
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+
+.template-customization
+    grid-area: template
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+
+.theme-customization
+    grid-area: theme
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+
+.content-customization
+    grid-area: content
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+
+.background-customization
+    grid-area: background
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    > .group-header-cover
+        border-radius: 0 0 0 18px
+    > .group-content
+        border-radius: 0 0 0 18px
+
+.shadow-customization
+    grid-area: shadow
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    > .group-header-cover
+        border-radius: 0 0 18px 0 !important
+    > .group-content
+        border-radius: 0 0 18px 0 !important
+
+.list-items-customization
+    grid-area: listitems
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+
+.checkbox-customization
+    grid-area: checkbox
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    > .group-header-cover
+        border-radius: 0 0 18px 0
+    > .group-content
+        border-radius: 0 0 18px 0
+
+.group-header
+    font-size: 24px
+    display: grid
+    place-items: center
+    padding: 0 5px
+    height: 30px
+    border: 1px solid grey
+    border-radius: 0 0 10px 10px
+    border-top: none
+    background-color: white
+    margin-bottom: 5px
+
+.group-header-cover
+    position: absolute
+    z-index: 2
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    background-color: white
+    display: grid
+    place-items: center
+    font-size: 24px
+    font-weight: 600
+    transition: all 100ms ease-in
+    > .inner-wrapper
+        position: relative
+        display: grid
+        place-items: center
+        width: 100%
+        height: 100%
+        > .template-icon-container
+            position: absolute
+            top: 1px
+            left: 1px
+            display: flex
+            grid-gap: 1px
+            > .template-icon
+                height: 15px
+                width: 15px
+                border-radius: 0 0 5px 0
+                display: grid
+                place-items: center
+                font-size: 10px
+                background-color: white
+                border: 1px solid grey
+        > .override-icon-container
+            position: absolute
+            top: 1px
+            right: 1px
+            display: flex
+            grid-gap: 1px
+            flex-direction: row-reverse
+            > .override-icon
+                height: 15px
+                width: 15px
+                border-radius: 0 0 0 5px
+                display: grid
+                place-items: center
+                font-size: 10px
+                background-color: white
+                border: 1px solid grey
+
+.group-content
+    > div
+        position: relative
+        > .template-icon
+            height: 10px
+            width: 10px
+            border-radius: 0 0 5px 0
+            position: absolute
+            top: -1px
+            left: -1px
+            display: grid
+            place-items: center
+            font-size: 10px
+            background-color: white
+            border: 1px solid grey
+    > div.override
+        background-color: #DDDDDD !important
+        position: relative
+        > .override-icon
+            height: 10px
+            width: 10px
+            border-radius: 0 0 0 5px
+            position: absolute
+            top: 0px
+            right: 0px
+            display: grid
+            place-items: center
+            font-size: 10px
+            background-color: white
+
+.clear
+    opacity: 0
+
+.hanging-button-right
+    position: absolute
+    bottom: -48px
+    right: 50px
+    height: 40px
+    padding: 0 5px
+    border-radius: 0 0 10px 10px
+    border: 3px double grey
+    border-top: none
+    font-size: 24px
+    background-color: white
+    cursor: pointer
+    display: grid
+    place-items: center
+
+.hanging-button-right:hover
+    background-color: #ddd
+
+.hanging-button-left
+    position: absolute
+    bottom: -48px
+    left: 50px
+    height: 40px
+    padding: 0 5px
+    border-radius: 0 0 10px 10px
+    border: 3px double grey
+    border-top: none
+    font-size: 24px
+    background-color: white
+    cursor: pointer
+    display: grid
+    place-items: center
+
+.hanging-button-left:hover
+    background-color: #ddd
+
+.element-type-viewer
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: stretch
+
+.wide-option
+    position: relative
+    width: 100%
+    font-size: 24px
+    background-color: white
+    flex: 1 1 0
+    cursor: pointer
+    transition: all ease-in 150ms
+
+.element-creation-title
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    display: grid
+    place-items: center
+    font-size: 24px
+    transition: bottom linear 200ms
+
+.title-shifted
+    bottom: 20% !important
+
+.element-creation-description
+    position: absolute
+    top: 50%
+    bottom: 0
+    left: 0
+    right: 0
+    display: grid
+    place-items: center
+    font-size: 16px
+    opacity: 0
+    transition: opacity linear 200ms
+
+.description-showing
+    opacity: 1 !important
+
+.wide-option:hover
+    font-weight: 700
+    font-size: 1.7em
+    filter: brightness(90%)
+
+.element-type-container
+    background-color: grey
+    grid-gap: 2px
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: flex-start
+    padding: 3px 0 0 0
+    flex: 1 1 0
+    border-radius: 0 0 24px 24px
+    overflow: hidden
+
+.sub-element-viewer-wrapper
+    flex: 1 1 0
+
+.disabled-type
+    background-color: rgba(150, 150, 150, 0.7)
+    pointer-events: auto
+
+.expand-arrow
+    padding: 0 5px
+    opacity: 0.2
+    font-size: 18px
+    transition: transform 500ms
+
+.expand-arrow:hover
+    opacity: 0.4
+    font-size: 20px
+
+.rotate
+    transform: rotate(180deg)
+
+.rotate-reverse
+    transform: rotate(-180deg)
+
+.disable-cover
+    position: absolute
+    z-index: 1
+    top: 0
+    left: 0
+    height: 100%
+    width: 100%
+    pointer-events: none
+    > .disable-element-wrapper
+        position: relative
+        height: 100%
+        > .disable-element
+            position: absolute
+            top: -2px
+            right: -2px
+            height: 100%
+            gap: 5px
+            display: flex
+            align-items: stretch
+            justify-content: flex-start
+            font-size: 16px
+            > span
+                padding-top: 5px
+                height: 25px
+                display: grid
+                place-items: center
+                font-weight: 700
+            > div
+                pointer-events: auto
+                width: 25px
+                height: 25px
+                display: flex
+                align-items: center
+                justify-content: center
+                font-size: 26px
+                border-width: 2px
+                border-style: solid
+                border-radius: 0 0 0 5px
+        > .edit-template-icon
+            position: absolute
+            top: -2px
+            left: -2px
+            height: 100%
+            gap: 5px
+            display: flex
+            align-items: stretch
+            justify-content: flex-start
+            > div
+                border-radius: 0 0 5px 0
+
+.invisible-text
+    color: rgba(0, 0, 0, 0)
+
+.add-content-button-wrapper
+    width: 100%
+    display: flex
+    justify-content: center
+    margin: 5px 0
+    font-size: 18px
+    font-weight: 600
+    opacity: 0.5
+    transition: all ease-in-out 100ms
+
+.add-content-button
+    padding: 5px
+    display: flex
+    place-items: center
+    justify-content: center
+
+.add-content-button-wrapper:hover
+    > .add-content-button
+        transform: scale(1.1)
+        opacity: 0.7
+
+@media screen and (max-width: 700px)
+    .cc-view-header
+        border-radius: 0 !important
+
+    .sub-close
+        top: -5px
+        right: -5px
+        width: 25px
+        height: 25px
+        border-radius: 0 0 0 50%
+
+    .new-customization-main-viewer
+        transform: unset !important
+        width: calc(100% - 10px) !important
+        height: calc(100% - 10px) !important
+        min-height: unset !important
+
+    .cc-view-header
+        transition: 80ms all linear
+        font-size: 20px !important
+        > .cc-view-header-text
+            transition: 120ms all linear
+            font-weight: 500
+            padding: 5px 40px
+            border-radius: 0 !important
+            display: flex
+            justify-content: center
+            align-items: center
+            > span
+                transition: all 200ms linear
+
+    .customization-minimized
+        height: max-content !important
+        min-height: max-content !important
+        > .cc-view-header
+            > .cc-view-header-text
+                width: 100%
+                box-sizing: border-box
+                height: 40px
+                > span
+                    transform: scale(0.9)
+        > .sub-template-viewer-wrapper
+            display: none
+
+    .new-customization
+        grid-template-rows: minmax(4vh, max-content) minmax(4vh, max-content) repeat(4, minmax(8vh, auto)) !important
+        grid-template-columns: repeat(4, 1fr)
+
+    .template-edit-customization
+        grid-template-rows: max-content 1fr 1fr 1fr 1fr 1fr 1fr !important
+        grid-template-columns: repeat(4, 1fr)
+    
+    .sub-template-viewer-wrapper
+        border-radius: 0 !important
+
+    .checklist-customization
+        grid-template-rows: max-content max-content 1fr 1fr 1fr 1fr 1fr 1fr !important
+        grid-template-columns: repeat(4, 1fr)
+
+    .template-viewer
+        max-height: 700px
+        border-radius: 0 !important
+
+    div.small-edit
+        > label
+            font-size: 15px !important
+        > div
+            > input, label
+                font-size: 15px !important
+                max-height: 20px !important
+
+    .background-customization, .shadow-customization, .checkbox-customization, .list-items-customization
+        > .group-content, > .group-header-cover
+            border-radius: 0 !important
+
+    div.wide-edit
+        > label
+            font-size: 15px !important
+        > input
+            font-size: 15px !important
+            max-height: 20px !important
+    
+    .line-customization
+        > .group-content
+            align-self: stretch
+            border-radius: 0 !important
+            > .stack-edit
+                grid-template-rows: 1fr 1fr !important
+                grid-template-columns: 1fr !important
+                > app-drop-down
+                    width: calc(100% - 40px) !important
+                    max-width: 300px !important
+            > div
+                grid-gap: 5px
+            > div.small-edit
+                grid-template-rows: 28px !important
+                grid-template-columns: auto 50px 300px auto !important
+
+    .square-customization
+        > .group-content
+            grid-template-columns: 1fr 1fr
+
+    .six-square-customization
+        > .group-content
+            grid-template-columns: repeat(3, 1fr)
+            > div, div.wide-edit
+                > label
+                    font-size: 15px
+
+    .square-customization, .six-square-customization
+        > .group-content
+            > div.wide-edit
+                grid-template-rows: 1fr 1fr
+            > div
+                grid-gap: 3px
+                grid-template-columns: 1fr
+                grid-template-rows: 1fr 1fr 1fr
+                padding: 3px
+
+    .two-square-customization
+        > .group-header-cover
+            > .inner-wrapper
+                > span
+                    transform: rotate(90deg)
+
+    .group-header-cover
+        font-size: 20px
+
+    .group-content
+        > .wide-edit
+            grid-template-rows: 1fr 1fr !important
+
+        > .small-edit
+            grid-template-rows: 1fr 1fr 1fr !important
+
+        > .small-edit, .wide-edit
+            grid-template-columns: 1fr !important
+            padding: 3px !important
+            grid-gap: 3px !important
+
+    .hanging-button-right, .hanging-button-left
+        top: -3px
+        left: -3px
+        right: unset
+        bottom: unset
+        width: 35px
+        height: 35px
+        padding: 0
+        display: grid
+        place-items: center
+        border: 2px solid grey
+        border-radius: 0
+        border-top: none !important
+        border-left: none !important
+
+    .hanging-button-left
+        border-radius: 0 0 12px 0
+        left: 34px
+
+    .theme-editor
+        grid-template-columns: 1fr
+        grid-template-rows: repeat(7, 1fr) !important
+
+@media screen and (max-height: 600px)
+    .two-square-customization
+        > .group-header-cover
+            font-size: 14px !important

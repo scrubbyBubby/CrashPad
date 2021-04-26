@@ -1,0 +1,238 @@
+<app-new-element [ngStyle]="initialInvisibility" style="position:relative" [showControls]="showControls" [mainStyling]="elementService.elements[uid].parsedCustomization.main" [overlay]="overlay" [preview]="preview" [draggable]="draggable" [containerUID]="containerUID" [uid]='uid' [hideExternal]="false">
+    <div class="main-element" [ngStyle]="elementService.elements[uid].parsedCustomization.insideBorderRadius" cdkDropListGroup [formGroup]="forms.itemForm">
+        <div [id]="customIDRef['header']" class="header" [ngStyle]="elementService.elements[uid].parsedCustomization.textTag">
+            <div *ngIf="!preview && !overlay" class="new-overlay-wrapper">
+                <div class="use-overlay-inner">
+                    <div class="use-overlay-icon" [ngStyle]="elementService.elements[uid].parsedCustomization.textTag"
+                        #useOverlayButton
+                        (mouseover)="toolTipService.openToolTip(toolTips.useOverlay, uid, useOverlayButton, true)"
+                        (mouseout)="toolTipService.closeToolTip()"
+                        (click)="checklistOverlayService.setOverlayUI(uid,true);containerService.holdHoveredElement('pinnedChecklist',true)">
+                        <svg
+                        width="25"
+                        height="25"
+                        viewBox="0 0 26.458333 26.458334"
+                        version="1.1"
+                        id="svg8">
+                            <g
+                                inkscape:label="Layer 1"
+                                inkscape:groupmode="layer"
+                                id="layer1"
+                                transform="translate(0,-270.54165)">
+                                <g
+                                id="g4486"
+                                transform="rotate(29.755963,12.506412,281.38934)">
+                                <path
+                                    inkscape:connector-curvature="0"
+                                    id="path4485"
+                                    d="m 9.4277344,272.26172 a 0.92613427,0.92613427 0 0 0 -0.9257813,0.92773 c 0.0017,1.04892 0.5782521,1.96338 1.3867188,2.67383 v 5.01367 c -0.017861,0.007 -0.0369,0.0124 -0.054687,0.0195 a 0.92613427,0.92613427 0 0 0 -0.00586,0.002 c -2.1340523,0.87969 -3.6214002,2.61065 -3.6210938,4.62695 a 0.92613427,0.92613427 0 0 0 0.9257813,0.92578 h 6.0957036 6.097656 a 0.92613427,0.92613427 0 0 0 0.925781,-0.92578 c 1.67e-4,-2.0164 -1.486832,-3.74737 -3.621094,-4.62695 a 0.92613427,0.92613427 0 0 0 -0.0039,0 c -0.0032,-0.001 -0.0065,-0.003 -0.0098,-0.004 v -4.92187 c 0.88884,-0.71918 1.527895,-1.67244 1.529296,-2.78321 a 0.92613427,0.92613427 0 0 0 -0.925781,-0.92773 h -1.529297 -4.876953 z m 1.2656246,1.85156 h 0.121094 4.876953 0.277344 c -0.177099,0.25532 -0.4133,0.49894 -0.753906,0.70313 a 0.92613427,0.92613427 0 0 0 -0.449219,0.79492 v 5.93359 a 0.92613427,0.92613427 0 0 0 0.650391,0.88477 c 0.175817,0.0549 0.346883,0.1162 0.511718,0.18359 1.165902,0.48158 1.775412,1.21734 2.115235,1.98633 H 13.228516 8.4160156 c 0.3392745,-0.76793 0.9462634,-1.50275 2.1093754,-1.98438 l 0.0039,-0.002 c 0.177027,-0.0711 0.361481,-0.13658 0.550781,-0.19336 a 0.92613427,0.92613427 0 0 0 0.660156,-0.88672 v -6.01367 A 0.92613427,0.92613427 0 0 0 11.324213,274.748 c -0.286097,-0.18892 -0.473722,-0.40959 -0.63086,-0.63477 z"
+                                    style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.85208333;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+                                <path
+                                    sodipodi:nodetypes="cccccc"
+                                    inkscape:connector-curvature="0"
+                                    id="rect4516"
+                                    d="m 12.567708,285.61343 h 1.322918 v 8.75795 l -0.66146,1.58914 -0.661458,-1.58914 z"
+                                    style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.85200012;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div [ngClass]="{'super-invisible':overlayText === undefined || overlayText === ''}" class="use-overlay-text">
+                        <span [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly">
+                            {{overlayText}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="expand-arrow header-arrow" (click)="contractList()" (mouseover)="hoverArrow('header')" (mouseout)="hoverArrow()"
+                [ngClass]="{'rotate':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || !contracted), 'big-arrow': hoveredArrow === 'header'}">&#9650;</div>
+            <div
+                id="{{uid}}-header" spellcheck="false" contenteditable class="editable-header" #checklistHeader
+                (focus)="revealControls(false);selectElementContents(checklistHeader)" (blur)="revealControls(true);postHeader()">{{elementService.elements[uid].parsedCustomization.content.title}}</div>
+            <div class="expand-arrow header-arrow" (click)="contractList()" (mouseover)="hoverArrow('header')" (mouseout)="hoverArrow()"
+                [ngClass]="{'rotate-reverse':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || !contracted), 'big-arrow': hoveredArrow === 'header'}">&#9650;</div>
+        </div>
+        <div class="drag-drop-wrapper" [id]="customIDRef['dragDropList']" [ngClass]="{'scroll-lock': overlay && checklistOverlayService.expanded === false,'force-open': mode === 'customize' || (mode === undefined && elementService.mode === 'customize')}">
+            <div class="drag-drop-sub-wrapper" [ngClass]="{'overlay-scroll': overlay && checklistOverlayService.expanded === false,'force-open': mode === 'customize' || (mode === undefined && elementService.mode === 'customize')}"
+                (scroll)="flowService.checkScroll($event,uid);" id="{{uid}}-container-items-container">
+                <div class="drag-drop-list" cdkDropList [cdkDropListData]="checklistService.checklists[uid].unchecked" [ngClass]="{'bottom-padding': elementService.mode === 'customize'}"
+                    (cdkDropListDropped)="drop($event)"
+                    [formGroup]="forms.itemForm" id="{{uid}}-container-items">
+                    <div cdkDrag *ngFor="let item of checklistService.checklists[uid].unchecked"
+                        [id]="customIDRef[item]" (cdkDragStarted)="setDragging(true)" (cdkDragEnded)="setDragging(false)"
+                        [cdkDragData]="item" class="element-item-wrapper" [ngStyle]="elementService.elements[uid].parsedCustomization.divider" 
+                        [ngClass]="{'pointer':forms.noteForm.value[item] != ''}">
+                        <div class="element-item" [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly">
+                            <div class="checklist-item-wrapper">
+                                <div class="checklist-item-top-content">
+                                    <div cdkDragHandle [cdkDragHandleDisabled]="preview">
+                                        <div class="drag-handle">
+                                            &#8942;
+                                        </div>
+                                    </div>
+                                    <div [ngStyle]="elementService.elements[uid].parsedCustomization.checkbox" class="checkbox" (click)="check(item)">
+                                        <span *ngIf="true" class="checkbox-icon invisible">
+                                            {{elementService.elements[uid].parsedCustomization.checkbox.checkboxIcon}}
+                                        </span>
+                                        <span *ngIf="false" class="checkbox-icon invisible">
+                                            {{elementService.elements[uid].customization.checkboxIcon || checklistService.defaultInfo.customization.checkboxIcon || "&#10003;"}}
+                                        </span>
+                                    </div>
+                                    <div (click)="toggleExpansion(item)" class="expand-arrow" (mouseover)="hoverArrow(item)" (mouseout)="hoverArrow()"
+                                        [ngClass]="{'rotate':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item), 'medium-arrow': hoveredArrow === item}">&#9650;</div>
+                                    <div 
+                                        class="checklist-item-text" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                        <div id="{{uid}}-{{item}}-text" spellcheck="false" contenteditable class="simple-wrapper edit-border" 
+                                        #checklistItemTitle (keydown)="checkReturn($event, item, false)"
+                                        (focus)="revealControls(false);preCheck(item,false);selectElementContents(checklistItemTitle)" (blur)="revealControls(true);postText(item)">
+                                            {{forms.itemForm.value[item]}}
+                                        </div>
+                                    </div>
+                                    <div (click)="toggleExpansion(item)" class="expand-arrow" (mouseover)="hoverArrow(item)" (mouseout)="hoverArrow()"
+                                        [ngClass]="{'rotate-reverse':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item), 'medium-arrow': hoveredArrow === item}">&#9650;</div>
+                                    <div (click)="removeItem(item)" [ngStyle]="elementService.elements[uid].parsedCustomization.textTag" class="remove-entry"
+                                        [ngClass]="{'invisible no-event':!(mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item))}">
+                                        X
+                                    </div>
+                                </div>
+                                <div class="separator" *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item)"
+                                    [ngStyle]="elementService.elements[uid].parsedCustomization.divider">
+                                </div>
+                                <div class="checklist-item-bottom-content" [ngClass]="{'no-display': !(mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item))}">
+                                    <div class="checklist-note-text" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                        <div id="{{uid}}-{{item}}-note" spellcheck="false" contenteditable class="expanded-content edit-border"
+                                            #checklistItemNote (keydown)="checkReturn($event, item, true)"
+                                            (focus)="revealControls(false);preCheck(item,true);selectElementContents(checklistItemNote)" (blur)="revealControls(true);postNote(item)">
+                                            {{forms.noteForm.value[item]}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="checklistService.checklists[uid].checked.length > 0" class="tiny-header" [ngStyle]="elementService.elements[uid].parsedCustomization.textTag"
+                    [ngClass]="{'no-display':checklistService.checklists[uid].checked.length === 0,'gap-above':checklistService.checklists[uid].unchecked.length > 0}">
+                    *completed*
+                </div>
+                <div *ngIf="checklistService.checklists[uid].checked.length > 0" class="drag-drop-list checked-list" cdkDropList [cdkDropListData]="checklistService.checklists[uid].checked"
+                    (cdkDropListDropped)="drop($event)">
+                    <div cdkDrag *ngFor="let item of checklistService.checklists[uid].checked"
+                        [id]="customIDRef[item]"
+                        [cdkDragData]="item" class="element-item-wrapper" [ngStyle]="elementService.elements[uid].parsedCustomization.divider" 
+                        [ngClass]="{'pointer':forms.noteForm.value[item] != ''}">
+                        <div class="element-item" [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly">
+                            <div class="checklist-item-wrapper">
+                                <div class="checklist-item-top-content">
+                                    <div cdkDragHandle [cdkDragHandleDisabled]="preview">
+                                        <div class="drag-handle">
+                                            &#8942;
+                                        </div>
+                                    </div>
+                                    <div [ngStyle]="elementService.elements[uid].parsedCustomization.checkbox" class="checkbox" (click)="check(item,false)">
+                                        <span *ngIf="false" class="checkbox-icon invisible">
+                                            {{elementService.elements[uid].parsedCustomization.checkbox.checkboxIcon}}
+                                        </span>
+                                        <span *ngIf="true" class="checkbox-icon">
+                                            {{elementService.elements[uid].customization.checkboxIcon || checklistService.defaultInfo.customization.checkboxIcon || "&#10003;"}}
+                                        </span>
+                                    </div>
+                                    <div (click)="toggleExpansion(item)" class="expand-arrow" 
+                                        [ngClass]="{'rotate':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item)}">&#9650;</div>
+                                    <div *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize'); else expandableChecklistItem" 
+                                        class="checklist-item-text" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                        <div id="{{uid}}-{{item}}-text" spellcheck="false" contenteditable class="simple-wrapper edit-border" (focus)="revealControls(false);preCheck(item,false)" (blur)="revealControls(true);postText(item)">
+                                            {{forms.itemForm.value[item]}}
+                                        </div>
+                                    </div>
+                                    <ng-template #expandableChecklistItem>
+                                        <div class="checklist-item-text" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                            <div class="simple-wrapper">
+                                                {{forms.itemForm.value[item]}}
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <div (click)="toggleExpansion(item)" class="expand-arrow" 
+                                        [ngClass]="{'rotate-reverse':mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item)}">&#9650;</div>
+                                    <div (click)="removeItem(item)" [ngStyle]="elementService.elements[uid].parsedCustomization.textTag" class="remove-entry"
+                                        [ngClass]="{'invisible no-event':!(mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item))}">
+                                        X
+                                    </div>
+                                </div>
+                                <div class="separator" *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item)"
+                                    [ngStyle]="elementService.elements[uid].parsedCustomization.divider">
+                                </div>
+                                <div class="checklist-item-bottom-content" *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize' || expandedItem === item)">
+                                    <div *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize'); else nonCustomizableChecklistItem"
+                                        class="checklist-note-text" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                        <div id="{{uid}}-{{item}}-note" spellcheck="false" contenteditable class="expanded-content edit-border" (focus)="revealControls(false);preCheck(item,true)" (blur)="revealControls(true);postNote(item)">
+                                            {{forms.noteForm.value[item]}}
+                                        </div>
+                                    </div>
+                                    <ng-template #nonCustomizableChecklistItem>
+                                        <div class="checklist-note-text" *ngIf="expandedItem === item" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                            {{forms.noteForm.value[item]}}
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <!--
+                            <div [ngStyle]="elementService.elements[uid].parsedCustomization.checkbox" class="checkbox" (click)="check(item)">
+                                <span *ngIf="true" class="checkbox-icon invisible">
+                                    {{elementService.elements[uid].parsedCustomization.checkbox.checkboxIcon}}
+                                </span>
+                                <span *ngIf="false" class="checkbox-icon invisible">
+                                    {{elementService.elements[uid].customization.checkboxIcon || checklistService.defaultInfo.customization.checkboxIcon || "&#10003;"}}
+                                </span>
+                            </div>
+                            <div class="expand-arrow" [ngClass]="{'rotate':expandedItem === item || elementService.mode === 'customize'}">&#9650;</div>
+                            <div class="item-title">
+                                <div *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize'); else expandableChecklistItem" 
+                                    class="link-target-wrapper focus-shadow" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems">
+                                    <div id="{{uid}}-{{item}}-text" spellcheck="false" contenteditable class="simple-wrapper edit-border" (focus)="revealControls(false);preCheck(item,false)" (blur)="revealControls(true);postText(item)">
+                                        {{forms.itemForm.value[item]}}
+                                    </div>
+                                    <div class="separator" [ngStyle]="elementService.elements[uid].parsedCustomization.divider">
+                                    </div>
+                                    <div id="{{uid}}-{{item}}-note" spellcheck="false" contenteditable class="expanded-content edit-border" (focus)="revealControls(false);preCheck(item,true)" (blur)="revealControls(true);postNote(item)">
+                                        {{forms.noteForm.value[item]}}
+                                    </div>
+                                </div>
+                                <ng-template #expandableChecklistItem>
+                                    <div class="link-target-wrapper" [ngStyle]="elementService.elements[uid].parsedCustomization.listItems" 
+                                        [ngClass]="{'focus-shadow':expandedItem === item}">
+                                        <div class="simple-wrapper">
+                                            {{forms.itemForm.value[item]}}
+                                        </div>
+                                        <div class="separator" [ngStyle]="elementService.elements[uid].parsedCustomization.divider" *ngIf="expandedItem === item">
+                                        </div>
+                                        <div class="expanded-content" *ngIf="expandedItem === item">
+                                            {{forms.noteForm.value[item]}}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                            <div class="expand-arrow" [ngClass]="{'rotate-reverse':expandedItem === item || elementService.mode === 'customize'}">&#9650;</div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fade-top" [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly"
+                [ngClass]="{'visible': flowService.columnScrollStates[uid]?.minScroll === false, 'no-event': !dragging}"
+                (mouseover)="scroll('up')" (mouseout)="scroll('none')"></div>
+            <div class="fade-bottom visible" [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly"
+                [ngClass]="{'invisible': flowService.columnScrollStates[uid]?.maxScroll === true, 'no-event': !dragging}"
+                (mouseover)="scroll('down')" (mouseout)="scroll('none')"></div>
+            <div [ngClass]="{'invisible-filter': (!overlay && contracted)}" class="checklist-scroll-filter-cover" [ngStyle]="elementService.elements[uid].parsedCustomization.fontColorAsBackground"></div>
+        </div>
+        <div [ngStyle]="elementService.elements[uid].parsedCustomization.textTag" class="element-button-wrapper">
+            <div class="element-item">
+                <div [ngStyle]="elementService.elements[uid].parsedCustomization.reverseTextTag"
+                    class="add-item-button" (click)="addItem(uid)">
+                    Add New Item
+                </div>
+            </div>
+        </div>
+    </div>
+</app-new-element>

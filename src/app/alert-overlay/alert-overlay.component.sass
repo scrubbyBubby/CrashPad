@@ -1,0 +1,88 @@
+.main-wrapper
+    position: fixed
+    top: -600px
+    right: 0
+    left: 0
+    z-index: 10000
+    display: flex
+    justify-content: center
+    align-items: flex-start
+    overflow: hidden
+    pointer-events: none
+    opacity: 0
+
+.sub-wrapper
+    position: relative
+    border-radius: 0 0 20px 20px
+    border: 2px solid red
+    border-top: none
+    padding: 5px
+    padding-top: 0
+    background-color: #ffcfcf
+    display: flex
+    align-items: flex-end
+
+.message
+    border-radius: 0 0 15px 15px
+    text-align: center
+    min-width: 400px
+    max-width: 400px
+    padding: 30px
+    border: 1px solid red
+    border-top: none
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    justify-content: center
+    transition: width 500ms linear
+
+.alert-text
+    font: 18px Arial
+    border-bottom: 1px solid red
+    :last-child
+        border-bottom: none
+
+.alert-up
+    bottom: 100%
+
+.alert-down
+    bottom: 0
+
+.countdown
+    opacity: 0
+    position: absolute
+    top: 0
+    right: 7px
+    display: inline-block
+    font: 18px Arial
+    color: rgba(0,0,0,0.5)
+    padding: 5px
+    border-radius: 100%
+
+.bottom-right-icon
+    position: absolute
+    bottom: -15px
+    right: -15px
+    width: 30px
+    height: 30px
+    font-size: 24px
+    display: grid
+    place-items: center
+
+.fading
+    animation-name: fade-out
+    animation-duration: 600ms
+    animation-timing-function: ease-out
+    animation-fill-mode: forwards
+
+@keyframes fade-out
+    0%
+        opacity: 1
+    30%
+        opacity: 0
+        max-height: 500px
+    100%
+        opacity: 0
+        max-height: 0
+        padding: 0
+        margin: 0

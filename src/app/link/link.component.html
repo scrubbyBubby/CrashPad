@@ -1,0 +1,38 @@
+<app-new-element style="position:relative" [showControls]="showControls" [preview]="preview" [mainStyling]="elementService.elements[uid].parsedCustomization.main"
+    [draggable]="draggable" [containerUID]="containerUID" [uid]='uid' 
+    style="display:flex;flex-direction:column;align-items:stretch;">
+    <div *ngIf="mode === 'customize' || (mode === undefined && elementService.mode === 'customize'); else noEditText" 
+        class="link-target"
+        [ngClass]="{'clickable':mode === 'customize' || (mode === undefined && elementService.mode === 'utilize')}">
+        <div [ngStyle]="elementService.elements[uid].parsedCustomization.backgroundAndTextOnly"
+            id="{{uid}}-text" spellcheck="false" contenteditable class="editable-text" #linkTitleEditable
+            (focus)="revealControls(false);selectElementContents(linkTitleEditable)" 
+            (input)="postText()"
+            (blur)="revealControls(true);">{{elementService.elements[uid].parsedCustomization.content.text}}</div>
+    </div>
+    <ng-template #noEditText>
+        <a class="link-target" [href]="elementService.elements[this.uid].parsedCustomization.content.link" target="_blank"
+            [ngClass]="{'clickable':mode === 'customize' || (mode === undefined && elementService.mode === 'utilize')}">
+            <div id="{{uid}}-text" class="noneditable-text">{{elementService.elements[uid].parsedCustomization.content.text}}</div>
+        </a>
+    </ng-template>
+    <div [ngStyle]="elementService.elements[uid].parsedCustomization.textTag"
+        *ngIf="!preview" class="container-icon">
+        <svg
+        width="25"
+        height="25"
+        viewBox="0 0 26.458333 26.458333"
+        version="1.1"
+        id="svg5116">
+            <g
+                id="layer1"
+                transform="translate(0,-270.54167)">
+                <path
+                style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.85208333;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+                d="m 22.0625,271.31641 c -0.70247,-0.15008 -1.420169,-0.0338 -2.044922,0.25781 -1.249506,0.58323 -2.262853,1.71929 -3.644531,3.17969 -1.505329,1.591 -2.577047,2.65237 -3.019531,3.92773 -0.219308,0.63211 -0.206428,1.361 0.07226,1.99024 -0.509676,0.52897 -0.885296,0.85001 -1.535156,1.55273 -0.771336,0.8341 -1.076708,1.25775 -1.601563,1.85742 -0.0069,-0.002 -0.01266,-0.01 -0.01953,-0.0117 -0.6928544,-0.18886 -1.4158215,-0.11161 -2.0566404,0.14453 -1.2816378,0.51228 -2.3665317,1.58911 -3.8378906,2.97071 -1.602997,1.50512 -2.7367853,2.50589 -3.2578125,3.75195 -0.26051361,0.62303 -0.3009377,1.35842 -0.054687,2.00781 0.2462502,0.64939 0.7036835,1.19979 1.3203125,1.77344 0.6211799,0.57776 1.2129226,0.99982 1.8769531,1.21875 0.6640306,0.21893 1.3860791,0.18239 2.0253906,-0.0586 1.2786232,-0.48196 2.3526801,-1.56256 3.9550773,-3.08399 1.501775,-1.42589 2.63618,-2.42836 3.181641,-3.66992 0.27273,-0.62078 0.345119,-1.35432 0.119141,-2.02539 -0.04532,-0.13458 -0.200317,-0.23927 -0.263672,-0.36719 0.545736,-0.56403 0.926997,-0.8859 1.679687,-1.70312 0.691898,-0.75124 0.990086,-1.16397 1.492188,-1.73438 0.11796,0.0455 0.22839,0.16663 0.349609,0.19922 0.675428,0.18157 1.395253,0.10452 2.019531,-0.17187 1.248557,-0.5528 2.254123,-1.69161 3.757813,-3.29883 1.409248,-1.50629 2.480077,-2.56965 2.947266,-3.8418 0.233594,-0.63607 0.257477,-1.37153 -0.0098,-2.02734 -0.267243,-0.65581 -0.757038,-1.20692 -1.421875,-1.75586 -0.671066,-0.554 -1.326827,-0.93196 -2.029297,-1.08203 z m -0.386719,1.81054 c 0.301847,0.0645 0.707503,0.26265 1.236328,0.69922 0.530588,0.4381 0.790441,0.78913 0.886719,1.02539 0.09628,0.23627 0.09847,0.3827 -0.01563,0.69336 -0.22818,0.62133 -1.153793,1.70927 -2.560547,3.21289 -1.498278,1.60145 -2.523664,2.59188 -3.154297,2.8711 -0.08039,0.0356 -0.134067,-3.9e-4 -0.201171,0.0195 0.03321,-0.0469 0.121076,-0.13169 0.152343,-0.17774 0.313553,-0.46172 0.55392,-0.88475 0.626953,-1.4082 0.07303,-0.52345 -0.158398,-1.1552 -0.546875,-1.50977 -0.399976,-0.36486 -1.060362,-0.52145 -1.574218,-0.39648 -0.350656,0.0853 -0.632507,0.31276 -0.927735,0.51563 0.378688,-0.62863 0.904918,-1.36121 2.119141,-2.64454 1.379545,-1.45813 2.394999,-2.45184 3.083984,-2.77343 0.344493,-0.1608 0.573154,-0.19144 0.875,-0.12696 z m -5.052734,7.04297 c -0.05043,0.10084 -0.0361,0.11448 -0.134766,0.25977 -0.07434,0.10946 -0.355031,0.39558 -0.455078,0.52539 -6.23e-4,-5.2e-4 -0.0013,5.1e-4 -0.002,0 -0.08209,-0.0679 -0.07031,-0.0946 -0.140625,-0.1582 0.109375,-0.0985 0.342288,-0.36652 0.4375,-0.44336 0.155714,-0.12568 0.187989,-0.12 0.294922,-0.1836 z m -2.011719,1.92774 c 0.08912,0.0803 0.116351,0.17344 0.212891,0.2539 -0.443991,0.49992 -0.627183,0.76685 -1.230469,1.42188 -0.68104,0.73942 -0.933672,0.94312 -1.425781,1.45508 -0.09197,-0.0839 -0.1911,-0.0976 -0.283203,-0.17383 0.475239,-0.53853 0.669443,-0.81986 1.365234,-1.57227 0.613057,-0.66292 0.889641,-0.8943 1.361328,-1.38476 z m -5.9726561,4.04687 c -0.2141841,0.35556 -0.4246449,0.69628 -0.4648438,1.11328 -0.050556,0.52446 0.2078986,1.1098 0.5703125,1.44141 0.3612107,0.33033 0.9625889,0.54265 1.4824214,0.45117 0.519834,-0.0915 0.922074,-0.35478 1.351563,-0.69531 0.03969,-0.0315 0.115895,-0.12493 0.15625,-0.1582 -0.0126,0.0329 0.0085,0.0468 -0.0078,0.084 -0.26811,0.61026 -1.262573,1.64692 -2.7617182,3.07031 -1.5966985,1.51602 -2.6822661,2.44844 -3.3320313,2.69336 -0.3248826,0.12246 -0.5086926,0.12693 -0.7929687,0.0332 -0.2842762,-0.0937 -0.6828803,-0.33784 -1.1953126,-0.81445 -0.5054437,-0.47022 -0.7601686,-0.83835 -0.8496093,-1.07422 -0.089441,-0.23586 -0.090118,-0.35308 0.029297,-0.63867 0.2388296,-0.57117 1.2235968,-1.61589 2.8183593,-3.11328 1.3510942,-1.26867 2.2884287,-2.03609 2.9960938,-2.39258 z m 2.0468751,0.29492 c 0.06871,0.0541 0.107958,0.0524 0.181641,0.11719 -0.102544,0.0916 -0.352521,0.37834 -0.439454,0.44727 -0.165915,0.13155 -0.186083,0.12144 -0.277343,0.16992 0.04152,-0.0954 0.02992,-0.1128 0.146484,-0.28711 0.05856,-0.0876 0.311013,-0.34416 0.388672,-0.44727 z"
+                inkscape:connector-curvature="0"
+                id="path5680" />
+            </g>
+        </svg>
+    </div>
+</app-new-element>

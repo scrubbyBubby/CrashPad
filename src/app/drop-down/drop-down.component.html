@@ -1,0 +1,48 @@
+<div class="drop-down-container" [ngClass]="{'stack-top': open}">
+    <div class="mock-placeholder">
+        <div class="choice thick-border">
+            {{choice}}
+        </div>
+    </div>
+    <div class="choice-view-wrapper" (click)="setListOpen(undefined,$event)" [ngStyle]="mainListStyling"
+        [ngClass]="{'thick-border shadow': open, 'flipped-up': flip}">
+        <div class="choice" [ngClass]="{'thick-border bottom-border stack-top': open, 'no-border': open === false}" [ngStyle]="choiceStyling">
+            <div class="choice-text">
+                <div class="sub-choice" *ngIf="choiceType === 'element'">
+                    {{elementService.elements[choice]?.title || emptyValue}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'template'">
+                    {{elementService.templates[choice]?.templateName || emptyValue}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'theme'">
+                    {{elementService.themes[choice]?.themeName || emptyValue}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'none'">
+                    {{choice | firstUpperCase}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'raw'" [innerHTML]="choice">
+                </div>
+            </div>
+            <div class="expand-arrow" [ngClass]="{'half-rotation': open}">&#9650;</div>
+        </div>
+        <div class="choice-list" [ngStyle]="choiceListStyling" [ngClass]="{'no-display': open != true}">
+            <div class="choice bottom-border" *ngFor="let item of listItems" (click)="selectItem(item)" 
+                [ngClass]="{'selected': choice === item}">
+                <div class="sub-choice" *ngIf="choiceType === 'element'">
+                    {{elementService.elements[item].title}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'template'">
+                    {{elementService.templates[item].templateName}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'theme'">
+                    {{elementService.themes[item].themeName}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'none'">
+                    {{item | firstUpperCase}}
+                </div>
+                <div class="sub-choice" *ngIf="choiceType === 'raw'" [innerHTML]="item">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
