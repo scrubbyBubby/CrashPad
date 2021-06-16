@@ -1,0 +1,15 @@
+<router-outlet></router-outlet>
+<app-tool-tip></app-tool-tip>
+<app-template-manager></app-template-manager>
+<app-cc-view></app-cc-view>
+<app-menu-controls></app-menu-controls>
+<app-alert-overlay></app-alert-overlay>
+<app-customization-box
+  ngDraggable
+  class="test-customization-box"
+  [customizationboxinfo]="newCustomizationBoxInfo"
+  (changedvalue)="handleChangedValue($event)"
+  (changedfocus)="handleChangedFocus($event)"
+  style="position: absolute; z-index: 100; margin: 5px; top: 20px"
+>
+</app-customization-box>

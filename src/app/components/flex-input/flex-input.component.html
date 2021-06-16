@@ -1,0 +1,60 @@
+<div class="flex-input">
+  <div class="flex-input-name">
+    {{ name }}
+  </div>
+  <div class="flex-input-type">
+    <div class="flex-input-type-text" *ngIf="type === 'text'">
+      <input
+        style="display: none"
+        value="{{ initialvalue }}"
+        (input)="setNewValue($event)"
+        (focus)="handleFocus(true, 'text')"
+        (blur)="handleFocus(false, 'text')"
+        size="9"
+        type="text"
+      />
+      <div
+        contenteditable
+        (input)="setNewValue($event)"
+        (focus)="handleFocus(true, 'text')"
+        (blur)="handleFocus(false, 'text')"
+      >
+        {{ initialValue }}
+      </div>
+    </div>
+    <div class="flex-input-type-color" *ngIf="type === 'color'">
+      <input
+        size="7"
+        maxlength="7"
+        [value]="storedValue"
+        (input)="setNewValue($event)"
+        type="text"
+        (focus)="handleFocus(true, 'text')"
+        (blur)="handleFocus(false, 'text')"
+      />
+      <input
+        [value]="storedValue"
+        (input)="setNewValue($event)"
+        type="color"
+        (focus)="handleFocus(true, 'color')"
+        (blur)="handleFocus(false, 'color')"
+      />
+    </div>
+    <div class="flex-input-type-dropdown" *ngIf="type === 'dropdown'">
+      <select
+        [value]="storedValue"
+        (input)="setNewValue($event)"
+        (focus)="handleFocus(true, 'dropdown')"
+        (blur)="handleFocus(false, 'dropdown')"
+      >
+        <option
+          *ngFor="let option of typeOptions.dropdownChoices"
+          value="{{ option.value }}"
+          [selected]="storedValue === option.value"
+        >
+          {{ option.text }}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

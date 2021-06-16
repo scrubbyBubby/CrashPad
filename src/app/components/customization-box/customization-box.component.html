@@ -1,0 +1,12 @@
+<div class="customization-box-component" [ngStyle]="boxStyling">
+  <div class="customization-box-header" style="grid-area: header">
+    {{ headerText }}
+  </div>
+  <app-customization-category
+    *ngFor="let category of categoryArray"
+    [ngStyle]="category.categoryMasterStyling"
+    [customizationcategoryinfo]="category"
+    (changedvalue)="handleValueChange($event)"
+    (changedfocus)="handleFocusChange($event)"
+  ></app-customization-category>
+</div>

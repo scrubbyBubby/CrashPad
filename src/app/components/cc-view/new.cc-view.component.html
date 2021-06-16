@@ -1,0 +1,88 @@
+<div class="template-cover" id="cc-view-cover" *ngIf="ccView.mainState"></div>
+<div
+  class="template-wrapper"
+  *ngIf="ccView.mainState"
+  [id]="ccView.ccViewUI + '-customization-box'"
+>
+  <div
+    id="customization-box"
+    cdkDrag
+    [cdkDragDisabled]="mobile"
+    class="template-viewer new-customization-main-viewer"
+    *ngIf="
+      ccView.mode === 'newCustomization' ||
+      ccView.mode === 'templateEdit' ||
+      ccView.mode === 'themeEdit'
+    "
+    [ngStyle]="ccView.locationStyling"
+    [ngClass]="{ 'customization-minimized': ccView.customizationMinimized }"
+  >
+    <div cdkDragHandle class="cc-view-header">
+      <div
+        class="cc-view-header-text"
+        [ngStyle]="
+          elementService.elements[ccView.ccViewUI]?.parsedCustomization
+            .backgroundAndTextOnly
+        "
+        *ngIf="ccView.mode === 'newCustomization'"
+        (click)="ccView.minimizeCustomization()"
+      >
+        <div
+          class="expand-arrow header-arrow"
+          [ngClass]="{
+            rotate: !ccView.customizationMinimized,
+            'no-display': !ccView.mobile
+          }"
+        >
+          &#9650;
+        </div>
+        <span>{{ headers[ccView.mode] }}</span>
+        <div
+          class="expand-arrow header-arrow"
+          [ngClass]="{
+            'rotate-reverse': !ccView.customizationMinimized,
+            'no-display': !ccView.mobile
+          }"
+        >
+          &#9650;
+        </div>
+      </div>
+    </div>
+    <div class="sub-template-viewer-wrapper">
+      <div
+        class="sub-template-viewer"
+        [formGroup]="ccView.forms[formGroups[ccView.mode]]"
+      >
+        <div
+          class="option-container form-wrapper new-customization"
+          [ngClass]="{
+            'checklist-customization': customizationChecks.checklist,
+            'template-edit-customization': customizationChecks.templateEdit,
+            'container-customization': customizationChecks.container
+          }"
+        >
+          <div
+            class="theme-customization line-customization"
+            [ngClass]="{
+              override:
+                ccView.mode === 'newCustomization' &&
+                ccView.forms.newOverrides['theme'],
+              'super-invisible': ccView.ccViewElementType != 'container'
+            }"
+          ></div>
+        </div>
+      </div>
+      <div
+        id="element-type-box"
+        ngDraggable
+        class="template-viewer new-customization-main-viewer element-type-viewer"
+        *ngIf="ccView.mode === 'elementType'"
+        [ngStyle]="ccView.locationStyling"
+      ></div>
+      <div
+        class="template-viewer"
+        *ngIf="ccView.mode === 'confirmDelete'"
+      ></div>
+    </div>
+  </div>
+</div>

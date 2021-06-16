@@ -1,0 +1,21 @@
+<div
+  id="{{ customizationCategoryId }}"
+  #element
+  class="customization-category"
+  [ngStyle]="categoryStyling"
+>
+  <div
+    *ngFor="let customization of customizationArray"
+    [ngStyle]="customization.customizationGridArea"
+  >
+    <app-flex-input
+      class="customization-category-child"
+      (newvalue)="handleValueChange($event, customization)"
+      (focuschild)="handleFocusChange($event, customization)"
+      [flexinputinfo]="customization"
+    ></app-flex-input>
+  </div>
+  <div class="category-cover">
+    <div [ngClass]="{ 'rotated-cover': verticalCover }">{{ name }}</div>
+  </div>
+</div>

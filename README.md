@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CrashPad
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
@@ -25,3 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+# NewCrashPad
+New attempt at folder structure for CrashPad
+>>>>>>> 8b99a50aec861fa03848ac845c04cd311fb1d598

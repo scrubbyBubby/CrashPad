@@ -1,0 +1,58 @@
+.flex-input
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
+    gap: 3px
+    font-size: 16px
+
+.flex-input-type
+    width: calc(100% - 10px)
+    display: flex
+    justify-content: center
+    align-items: center
+
+.flex-input-type-text
+    width: calc(100% - 20px)
+    div
+        padding: 3px
+        border: 2px dashed #888
+        text-align: center
+        width: calc(100% - 10px)
+    div:focus
+        border: 2px solid #444444
+        outline: none
+        position: relative
+        z-index: 100
+        size: 12
+
+input[type=text]
+    text-align: center
+    padding: 3px 0
+    border: 2px dashed #888888
+
+input[type=text]:focus
+    border: 2px solid #444444
+    outline: none
+    position: relative
+    z-index: 100
+    size: 12
+
+.flex-input-type-color
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 2px
+    width: 100%
+    input[type=color]
+        width: 100%
+        max-width: 70px
+
+.flex-input-type-dropdown
+    width: calc(100% - 20px)
+    select
+        width: 100%
+        padding: 5px
